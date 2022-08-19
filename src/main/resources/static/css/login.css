@@ -1,0 +1,57 @@
+/* {
+        text-align: center;
+    }*/
+h1 {
+	color: coral;
+	text-align: center;
+}
+
+#username-label {
+	color: darkgreen;
+	text-align: center;
+}
+
+#password-label {
+	color: gold;
+	text-align: center;
+}
+
+#login-submit {
+	background-color: cyan;
+	text-align: center;
+	width: 100px;
+	height: 50px;
+}
+
+#contents {
+	background-color: lightslategray;
+	width: 500px;
+	text-align: center;
+	margin: auto
+}
+
+#welcome{
+	color:black;
+	text-align: left;
+	margin-left: 10px;
+}
+
+#div-head{
+	background-color: blueviolet;
+	margin: -10px;
+}
+
+body {
+	background-image: url(../jpeg/backgroundImage.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 80%;
+}
+
+.judgement {
+	color: red;
+}
+
+#username {}
+
+#password {}

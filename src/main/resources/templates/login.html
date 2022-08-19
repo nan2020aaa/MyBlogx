@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Login</title>
+	<!-->TODO サーバーにした後、パスを変更しなきゃ<-->
+	<link rel="stylesheet" href="../static/css/login.css">
+</head>
+
+<body>
+	<div id="div-head">
+        <h1 id="welcome">
+            WELCOME TO YANAGI BLOG
+        </h1>
+    </div>
+	<div id="contents">
+		<form th:action="@{/login}" method="post">
+			<h1>Login</h1>
+			<p th:if="${isInitial==false}" class="judgement">Username or password error!</p>
+			<hr>
+			<label for="username" id="username-label">UserName: </label>
+			<input id="username" type="text" name="username" placeholder="username/Email" required>
+			<br>
+			<br>
+			<label for="password" id="password-label">Password: </label>
+			<input id="password" type="password" name="password" required placeholder="password">
+			<br>
+			<br>
+			<input id="login-submit" type="submit" value="Login">
+			<br>
+			<hr>
+			<p>Do not have an account yet? <a th:href="@{/register}" target="_blank"><i>Register</i></a>.</p>
+		</form>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+#contents {
+    background-color: lightslategray;
+	width: 500px;
+	margin: auto;
+}
+
+#welcome {
+	color:black;
+	text-align: left;
+	margin-left: 10px;
+}
+
+#div-head {
+	background-color: blueviolet;
+	margin: -10px;
+}
+
+#blog-summary {
+    margin-left: 13px;
+}
+
+#blog-content {
+    margin-left: 23px;
+    height: 300px;
+    margin-bottom: 10px;
+}
+
+#blog-content-label {
+    
+}
+
+#submit {
+	background-color: cyan;
+	text-align: center;
+	width: 80px;
+	height: 30px;
+    margin-bottom: 5px;
+}
+
+#new-submit {
+    text-align: center;
+}
+
+h1 {
+    color: coral;
+    text-align: center;
+}
+
+body {
+    background-image: url(../jpeg/backgroundImage.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 80%;
+}
+
+.new-blog {
+	margin-left: 50px;
+    width: 380px;
+}
+
+.new-blog-label {
+	margin-left: 10px;
+}
