@@ -2,7 +2,6 @@
     background-color: lightslategray;
 	width: 500px;
 	margin: auto;
-	text-align: center;
 }
 
 #welcome {
@@ -16,8 +15,30 @@
 	margin: -10px;
 }
 
-#delete-blog {
-	margin-bottom: 10px;
+#blog-summary {
+    margin-left: 13px;
+}
+
+#blog-content {
+    margin-left: 23px;
+    height: 300px;
+    margin-bottom: 10px;
+}
+
+#blog-content-label {
+    
+}
+
+#submit {
+	background-color: cyan;
+	text-align: center;
+	width: 80px;
+	height: 30px;
+    margin-bottom: 5px;
+}
+
+#new-submit {
+    text-align: center;
 }
 
 h1 {
@@ -39,11 +60,4 @@ body {
 
 .new-blog-label {
 	margin-left: 10px;
-}
-
-.menu-button {
-	background-color: cyan;
-	text-align: center;
-	width: 400px;
-	height: 60px;
 }

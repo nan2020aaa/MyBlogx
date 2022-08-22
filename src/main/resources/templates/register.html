@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Register</title>
-	<link rel="stylesheet" href="../static/css/register.css">
+	<link rel="stylesheet" href="../static/css/register.css" th:href="@{/css/register.css}">
 </head>
 
 <body>
@@ -16,11 +16,11 @@
 	<div id="contents">
 		<form th:action="@{/register}" method="post">
 			<div>
-				<h1>Register</h1>
+				<h1>REGISTER</h1>
 				<p th:if="${isMatch==false}" class="judgement">Password input twice do not match.</p>
 				<p th:if="${isExist==true}" color="judgement">Account has existed.</p>
 				<hr>
-				<p>Please fill in this form to create an account.</p>
+				<p>Please fill out this form to create a new account.</p>
 			</div>
 			<div>
 				<label id="username-label" for="username">Username</label>
@@ -45,9 +45,10 @@
 				<label for="email" class="checkcode" id="checkcode-label">Check code</label>
 				<input id="checkcode" name="checkcode" class="checkcode" type="text" requeired>
 			</div>
+			<br>
 			<div>
-				<p>By creating an account you agree to our <a th:href="@{https://policies.google.com/privacy?hl=en-US}"
-						target="_blank">Terms & Privacy</a>.</p>
+				<input type="checkbox">You have confirmed our <a th:href="@{/termsAndPolicies}"
+						target="_blank">Terms & Privacy</a>.
 			</div>
 			<div>
 				<input id="submit" value="Register" type="submit">

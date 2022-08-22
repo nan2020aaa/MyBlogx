@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Update Blog</title>
+        <link rel="stylesheet" href="../static/css/newBlog.css">
+        <script></script>   
+    </head>
+    <body>
+        <div id="div-head">
+            <h1 id="welcome">
+                YANAGI BLOG
+            </h1>
+        </div>
+        <div id="contents">
+            <form th:action="@{/register}" method="post">
+                <h1>
+                    UPDATE BLOG
+                </h1>
+                <div id="new-title">
+                    <label for="blog-title" id="blog-title-label" class="new-blog-label">Title: </label>
+                    <input id="blog-title" type="text" placeholder="Please input the title of your new blog here." required class="new-blog">
+                </div>
+                <hr>
+                <div id="new-summary">
+                    <label for="blog-summary" id="blog-summary-label" class="new-blog-label">Summary: </label>
+                    <input id="blog-summary" type="text" placeholder="Please input the summary of your new blog here." class="new-blog">
+                </div>
+                <hr>
+                <div id="new-content">
+                    <label for="blog-content" id="blog-content-label" class="new-blog-label">Content: </label>
+                    <input id="blog-content" type="text" placeholder="Please input the content of your new blog here." class="new-blog" required>
+                </div>
+                <div id="new-submit">
+                    <input id="submit" type="submit" value="update">
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

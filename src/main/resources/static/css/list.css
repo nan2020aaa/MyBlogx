@@ -2,7 +2,6 @@
     background-color: lightslategray;
 	width: 500px;
 	margin: auto;
-	text-align: center;
 }
 
 #welcome {
@@ -16,8 +15,12 @@
 	margin: -10px;
 }
 
-#delete-blog {
-	margin-bottom: 10px;
+#hyperlink{
+	text-align: center;
+}
+
+#list {
+	padding-bottom: 10px;
 }
 
 h1 {
@@ -30,20 +33,4 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 	opacity: 80%;
-}
-
-.new-blog {
-	margin-left: 50px;
-    width: 380px;
-}
-
-.new-blog-label {
-	margin-left: 10px;
-}
-
-.menu-button {
-	background-color: cyan;
-	text-align: center;
-	width: 400px;
-	height: 60px;
 }

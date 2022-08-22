@@ -4,19 +4,19 @@
 <head>
 	<meta charset="utf-8">
 	<title>Login</title>
-	<!-->TODO サーバーにした後、パスを変更しなきゃ<-->
-	<link rel="stylesheet" href="../static/css/login.css">
+	<!-- サーバーにした後、パスを変更しなきゃ -->
+	<link rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}">
 </head>
 
 <body>
 	<div id="div-head">
-        <h1 id="welcome">
-            WELCOME TO YANAGI BLOG
-        </h1>
-    </div>
+		<h1 id="welcome">
+			WELCOME TO YANAGI BLOG
+		</h1>
+	</div>
 	<div id="contents">
 		<form th:action="@{/login}" method="post">
-			<h1>Login</h1>
+			<h1>LOGIN</h1>
 			<p th:if="${isInitial==false}" class="judgement">Username or password error!</p>
 			<hr>
 			<label for="username" id="username-label">UserName: </label>

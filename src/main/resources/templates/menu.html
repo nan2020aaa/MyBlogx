@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>New Blog</title>
+        <title>Yanagi Menu</title>
         <link rel="stylesheet" href="../static/css/menu.css">
         <script></script>   
     </head>
@@ -15,18 +15,23 @@
         <div id="contents">
             <form th:action="@{/register}" method="post">
                 <h1>
-                    FUNCTION MENU
+                    YANAGI MENU
                 </h1>
-                <div id="new-title">
-                    
+                <hr>
+                <div id="search-blog">
+                    <input type="button" id="search-blog" class="menu-button" value="YANAGI BROWSE">
                 </div>
                 <hr>
-                <div id="new-summary">
-                    
+                <div id="update-blog">
+                    <input type="button" id="update-blog" class="menu-button" value="YANAGI NEW">
                 </div>
                 <hr>
-                <div id="new-content">
-                    
+                <div id="new-blog">
+                    <input type="button" id="new-blog" class="menu-button" value="YANAGI CHANGE">
+                </div>
+                <hr>
+                <div id="delete-blog">
+                    <input type="button" id="delete-blog" class="menu-button" value="YANAGI FAREWELL">
                 </div>
             </form>
         </div>
