@@ -27,7 +27,7 @@ h1 {
 	background-color: lightslategray;
 	width: 500px;
 	text-align: center;
-	margin: auto
+	margin:150px 500px;
 }
 
 #welcome{
@@ -39,6 +39,14 @@ h1 {
 #div-head{
 	background-color: blueviolet;
 	margin: -10px;
+}
+
+#continue{
+	width: auto;
+	height: auto;
+	position:absolute;
+	right: 10px;
+	bottom:10px;
 }
 
 body {

@@ -4,7 +4,11 @@
 <head>
 	<meta charset="utf-8">
 	<title>Register</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../static/css/register.css" th:href="@{/css/register.css}">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.bundle.min.js"></script>
+	<script th:src="@{/js/register.js}"></script>
 </head>
 
 <body>
@@ -13,52 +17,57 @@
             WELCOME TO YANAGI BLOG
         </h1>
     </div>
-	<div id="contents">
-		<form th:action="@{/register}" method="post">
-			<div>
-				<h1>REGISTER</h1>
-				<p th:if="${isMatch==false}" class="judgement">Password input twice do not match.</p>
-				<p th:if="${isExist==true}" color="judgement">Account has existed.</p>
+	<span class="border border-danger">
+			<div id="contents">
+			<form th:action="@{/register}" method="post">
+				<div>
+					<h1>REGISTER</h1>
+					<!--
+						<p th:if="${isMatch==false}" class="judgement">Password input twice do not match.</p>
+						<p th:if="${isExist==true}" color="judgement">Account has existed.</p>
+						<hr>
+					-->
+					<p>Please fill out this form to create a new account.</p>
+				</div>
+				<div>
+					<label id="username-label" for="username">Username</label>
+					<br>
+					<input id="username" placeholder="Enter Username" name="username" type="text" required>
+					<br>
+					<br>
+					<label id="password-label" for="password">Password</label>
+					<br>
+					<input id="password" placeholder="Enter Password" name="password" type="password" required>
+					<br>
+					<br>
+					<label for="repeat-password" id="repeat-password-label">Repeat Password</lavel>
+					<br>
+					<input id="repeat-password" placeholder="Repeat Password" name="repeatPassword" type="password"
+						required>
+					<br>
+					<br>
+					<label for="email" id="email-label">E-mail</lavel>
+					<br>
+					<input id="email" placeholder="Email" name="email" type="text" requeired>
+					<label for="email" class="checkcode" id="checkcode-label">Check code</label>
+					<input id="checkcode" name="checkcode" class="checkcode" type="text" requeired>
+				</div>
+				<br>
+				<div>
+					<input type="checkbox">You have confirmed our <a th:href="@{/termsAndPolicies}"
+							target="_blank">Terms & Privacy</a>.
+				</div>
+				<div>
+					<input id="submit" value="Register" type="submit">
+				</div>
 				<hr>
-				<p>Please fill out this form to create a new account.</p>
-			</div>
-			<div>
-				<label id="username-label" for="username">Username</label>
-				<br>
-				<input id="username" placeholder="Enter Username" name="username" type="text" required>
-				<br>
-				<br>
-				<label id="password-label" for="password">Password</label>
-				<br>
-				<input id="password" placeholder="Enter Password" name="password" type="password" required>
-				<br>
-				<br>
-				<label for="repeat-password" id="repeat-password-label">Repeat Password</lavel>
-				<br>
-				<input id="repeat-password" placeholder="Repeat Password" name="repeatPassword" type="password"
-					required>
-				<br>
-				<br>
-				<label for="email" id="email-label">E-mail</lavel>
-				<br>
-				<input id="email" placeholder="Email" name="email" type="text" requeired>
-				<label for="email" class="checkcode" id="checkcode-label">Check code</label>
-				<input id="checkcode" name="checkcode" class="checkcode" type="text" requeired>
-			</div>
-			<br>
-			<div>
-				<input type="checkbox">You have confirmed our <a th:href="@{/termsAndPolicies}"
-						target="_blank">Terms & Privacy</a>.
-			</div>
-			<div>
-				<input id="submit" value="Register" type="submit">
-			</div>
-			<hr>
-			<div>
-				<p>Already have an account? <a th:href="@{/login}" target="_blank">Sign in</a>.</p>
-			</div>
-		</form>
-	</div>
+				<div>
+					<p>Already have an account? <a th:href="@{/login}" target="_blank">Sign in</a>.</p>
+				</div>
+			</form>
+		</div>
+	</span>
+	
 </body>
 
 </html>

@@ -14,6 +14,7 @@ public class AccountService {
 	@Autowired
 	AccountRepository repository;
 
+	//loginに使う。
 	public boolean validateAccount(String username, String password) {
 		Account account = repository.findByUsername(username);
 		if (account == null) {
@@ -25,8 +26,9 @@ public class AccountService {
 		}
 	}
 
+	//registerに使う。
 	public boolean createAccount(String username, String password, String repeatPassword) {
-		if ((!isExist(username)) && passwordMatch(password, repeatPassword)) {
+		if ((!isExist(username)) /*&& passwordMatch(password, repeatPassword)*/) {
 			repository.save(new Account(username, password));
 			return true;
 		} else {
@@ -34,13 +36,13 @@ public class AccountService {
 		}
 	}
 
-	public boolean passwordMatch(String password, String repeatPassword) {
-		if (password.equals(repeatPassword)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+//	public boolean passwordMatch(String password, String repeatPassword) {
+//		if (password.equals(repeatPassword)) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
 
 	public boolean isExist(String username) {
 		if (repository.findByUsername(username) != null) {
