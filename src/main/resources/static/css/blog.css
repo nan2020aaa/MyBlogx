@@ -1,7 +1,9 @@
 #contents {
     background-color: lightslategray;
 	width: 500px;
-	margin: auto;
+	margin:auto;
+	margin-top: 100px;
+	padding: 10px;
 }
 
 #welcome {
@@ -12,7 +14,6 @@
 
 #div-head {
 	background-color: blueviolet;
-	margin: -10px;
 }
 
 #summary {
@@ -35,7 +36,21 @@
 }
 
 #interact {
-	text-align:right;
+	text-align: right;
+}
+
+#writer {
+	text-align: right;
+	color: red;
+}
+
+#search-bar {
+	margin:-10px;
+}
+
+#date {
+	color: cornflowerblue;
+	text-align: right;
 }
 
 h1 {

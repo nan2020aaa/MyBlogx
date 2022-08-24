@@ -3,6 +3,13 @@ h1 {
 		text-align: center;
 	}
 
+#submit {
+	background-color: cyan;
+	text-align: center;
+	width: 100px;
+	height: 50px;
+}
+
 #username-label {
 	color: darkgreen;
 	text-align: center;
@@ -13,41 +20,34 @@ h1 {
 	text-align: center;
 }
 
-#email-label {
-	color:indigo;
-	text-align: center;
-}
-
 #repeat-password-label {
 	color:mediumblue;
 	text-align: center;
 }
 
-#submit {
-	background-color: cyan;
-	text-align: center;
-	width: 100px;
-	height: 50px;
+#email-label {
+	color:indigo;
+	margin-left: -145px;
 }
 
-#contents {
-	background-color: lightslategray;
-	width: 500px;
-	text-align: center;
-	margin: auto
+#email-remain {
+	margin-left: 145px;
 }
 
 #checkcode{
 	width: 50px;
 }
 
-#email-label{
-	margin-left: 0px;
-}
-
 #checkcode-label{
 	margin-left: 10px;
 	color:black;
+}
+
+#contents {
+	background-color: lightslategray;
+	width: 500px;
+	text-align: center;
+	margin: auto;
 }
 
 #welcome{
@@ -61,13 +61,17 @@ h1 {
 	margin: -10px;
 }
 
+#icon-contents {
+	margin-left: 145px;
+}
+
+#icon-intro {
+	text-align: left;
+}
+
 body {
 	background-image: url(../jpeg/backgroundImage.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
 	opacity: 80%;
-}
-
-.judgement {
-	color: red;
 }

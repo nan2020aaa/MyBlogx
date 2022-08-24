@@ -10,6 +10,8 @@ import com.example.MyBlogx.models.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 	Account findByUsername(String username);
+	
+	Account findByEmail(String email);
 
 	Account save(Account account);
 

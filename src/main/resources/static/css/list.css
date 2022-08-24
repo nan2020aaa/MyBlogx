@@ -22,15 +22,8 @@
 	padding-bottom: 10px;
 }
 
-#search-bar{
-	text-align: right;
-}
-
-#search-bar-bar{
-	width: 250px;
-	height: 200px;
-	margin-right: 10px;
-	color: blueviolet;
+#search-bar {
+	margin:-10px;
 }
 
 h1 {

@@ -22,6 +22,9 @@ public class Blog {
 
 	@Column
 	private String content;
+	
+	@Column
+	private String writer;
 
 	@Column
 	private long likeVol;
@@ -99,7 +102,27 @@ public class Blog {
 		this.date = date;
 	}
 
-	public Blog() {
-		super();
+	public String getWriter() {
+		return writer;
 	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+	public Blog() {
+	}
+
+	public Blog(String theme, String summary, String content, String writer, long likeVol, long commentVol, long rtVol,
+			LocalDateTime date) {
+		this.theme = theme;
+		this.summary = summary;
+		this.content = content;
+		this.writer = writer;
+		this.likeVol = likeVol;
+		this.commentVol = commentVol;
+		this.rtVol = rtVol;
+		this.date = date;
+	}
+	
 }

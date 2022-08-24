@@ -8,6 +8,9 @@ import javax.persistence.Id;
 
 @Entity
 public class Account {
+	public static boolean hasLoged = false;//アカウントの状態
+	public static String hasLogedUser = null;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -78,8 +81,11 @@ public class Account {
 	public Account() {
 	}
 
-	public Account(String username, String password) {
+	public Account(String username, String password, String email, String picture) {
 		this.username = username;
 		this.password = password;
+		this.email = email;
+		this.picture = picture;
 	}
+	
 }
