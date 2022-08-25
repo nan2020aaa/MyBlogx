@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Content</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.bundle.min.js"></script>
+		<link rel="stylesheet" href="../static/css/publicBlog.css" th:href="@{/css/publicBlog.css}">
+		<script href="../static/js/publicBlog.js" th:src="@{/js/publicBlog.js}"></script>
+    </head>
+    <body>
+        <div id="div-head">
+            <h1 id="welcome">
+                YANAGI BLOG
+            </h1>
+        </div>
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" id="search-bar">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand">Blog Search</a>
+                <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+		</div>
+		
+        <div id="contents">
+            <h1>
+                <span>The first Article</span>
+            </h1>
+            <p id="writer">write by: <span>Yanagi</span></p>
+            <hr>
+            <div id="summary">
+                <p>
+                    <i><b>--<span>This is the first article from author of this website.</span></b></i>
+                </p>
+            </div>
+            <div id="content">
+                <p>
+                    <span>I like sushi, what about you.</span>
+                </p>
+                <div id="date"><p></p>dd</div>
+            </div>
+            <hr>
+            <div id="interact">
+                <span>Like </span>
+                <span>Comment </span>
+                <span>RT </span>
+            </div>
+            <div id="back">
+                <input id="back-button" type="button" value="back">
+            </div>
+        </div>
+    </body>
+</html>

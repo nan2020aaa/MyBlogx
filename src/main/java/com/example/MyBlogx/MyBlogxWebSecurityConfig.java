@@ -44,20 +44,22 @@ public class MyBlogxWebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public UserDetailsService userDetailsService() {
 		List<UserDetails> resultList = new ArrayList();
-		for (String username : accountService.userIterator().keySet()) {
-			UserDetails user = User.withDefaultPasswordEncoder().username(username)
-					.password(accountService.userIterator().get(username)).roles("USER").build();
-			resultList.add(user);
-		}
+		resultList.stream().forEach(
+				account->{
+					UserDetails user = User.withDefaultPasswordEncoder().username(account.getUsername())
+							.password(account.getPassword()).roles("USER").build();
+					resultList.add(user);
+				}
+				);
 
 		return new InMemoryUserDetailsManager(resultList);
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/termsAndPolicies", "/blog", "/register", "/css/**", "/js/**", "/jpeg/**")//
+		http.authorizeRequests().antMatchers("/termsAndPolicies", "/publicList", "/publicBlog", "/register", "/css/**", "/js/**", "/jpeg/**")//
 				.permitAll().anyRequest().authenticated()//
-				.and().formLogin().loginPage("/login").permitAll()//
-				.and().logout().permitAll();
+				.and().formLogin().loginPage("/login.html").loginProcessingUrl("/login").defaultSuccessUrl("/menu.html", true)//
+				.and().logout().permitAll();//
 	}
 }

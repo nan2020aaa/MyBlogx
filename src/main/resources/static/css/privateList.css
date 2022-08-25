@@ -1,7 +1,9 @@
 #contents {
     background-color: lightslategray;
-	width: 500px;
-	margin: auto;
+	width: 1200px;
+	margin:auto;
+	margin-top: 100px;
+	padding: 10px;
 }
 
 #welcome {
@@ -12,14 +14,6 @@
 
 #div-head {
 	background-color: blueviolet;
-}
-
-#hyperlink{
-	text-align: center;
-}
-
-#list {
-	padding-bottom: 10px;
 }
 
 #search-bar {

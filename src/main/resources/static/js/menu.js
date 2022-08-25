@@ -2,7 +2,19 @@ $(
     ()=>{
         $("#search-blog-button").on("click",()=>
         {
-            window.location.href="/list"
+            window.location.href="/privateList"
+        });
+        $("#new-blog-button").on("click",()=>
+        {
+            window.location.href="/newBlog"
+        });
+        $("#update-blog-button").on("click",()=>
+        {
+            window.location.href="/privateList"
+        });
+        $("#delete-blog-button").on("click",()=>
+        {
+            window.location.href="/privateList"
         });
     }
 );

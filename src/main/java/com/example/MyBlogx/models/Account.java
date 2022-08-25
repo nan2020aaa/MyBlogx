@@ -8,9 +8,6 @@ import javax.persistence.Id;
 
 @Entity
 public class Account {
-	public static boolean hasLoged = false;//アカウントの状態
-	public static String hasLogedUser = null;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

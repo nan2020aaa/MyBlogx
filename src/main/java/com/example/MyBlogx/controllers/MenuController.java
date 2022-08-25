@@ -15,9 +15,4 @@ public class MenuController {
 	public String getMenuPage() {
 		return "menu.html";
 	}
-	
-	@GetMapping("/list")
-	public String getListPage() {
-		return "list.html";
-	}
 }

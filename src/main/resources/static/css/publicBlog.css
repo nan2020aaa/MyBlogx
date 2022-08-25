@@ -1,8 +1,9 @@
 #contents {
     background-color: lightslategray;
-	width: 500px;
-	margin: auto;
+	width: 1200px;
+	margin:auto;
 	margin-top: 100px;
+	padding: 10px;
 }
 
 #welcome {
@@ -13,33 +14,43 @@
 
 #div-head {
 	background-color: blueviolet;
-	margin: -10px;
 }
 
-#blog-summary {
-    margin-left: 13px;
-}
-
-#blog-content {
-    margin-left: 23px;
-    height: 300px;
-    margin-bottom: 10px;
-}
-
-#blog-content-label {
-    
-}
-
-#submit {
-	background-color: cyan;
-	text-align: center;
-	width: 80px;
-	height: 30px;
-    margin-bottom: 5px;
-}
-
-#new-submit {
+#summary {
     text-align: center;
+}
+
+#content {
+    text-align: center;
+}
+
+#back-button {
+    background-color: cyan;
+	text-align: center;
+	width: 100px;
+	height: 50px;
+}
+
+#back {
+	text-align: center; 
+}
+
+#interact {
+	text-align: right;
+}
+
+#writer {
+	text-align: right;
+	color: red;
+}
+
+#search-bar {
+	margin:-10px;
+}
+
+#date {
+	color: cornflowerblue;
+	text-align: right;
 }
 
 h1 {
