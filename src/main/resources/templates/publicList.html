@@ -36,7 +36,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Theme</th>
+                        <th scope="col">Title</th>
                         <th scope="col">Summary</th>
                         <th scope="col">Last update</th>
                         <th scope="col">Author</th>
@@ -60,13 +60,13 @@
                 <tbody>
                     <tr>
                         <th scope="row">1</th>
-                        <td><a th:href="@{/publicBlog}" th:text="${theme-1}"></a></td>
-                        <td th:text="${summary-1}"></td>
-                        <td th:text="${last-update-date-1}"></td>
-                        <td th:text="${writer-1}"></td>
-                        <td th:text="${like-vol-1}"></td>
-                        <td th:text="${comment-vol-1}"></td>
-                        <td th:text="${rt-vol-1}"></td>
+                        <td><a th:href="@{/publicBlog}"><span th:text="${theme-1}"></span></a></td>
+                        <td><span th:text="${summary-1}"></span></td>
+                        <td><span th:text="${last-update-date-1}"></span></td>
+                        <td><span th:text="${writer-1}"></span></td>
+                        <td><span th:text="${like-vol-1}"></span></td>
+                        <td><span th:text="${comment-vol-1}"></span></td>
+                        <td><span th:text="${rt-vol-1}"></span></td>
                     </tr>
                 </tbody>
                 </table>

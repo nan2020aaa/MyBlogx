@@ -38,13 +38,13 @@ public class MyBlogxWebSecurityConfig extends WebSecurityConfigurerAdapter {
 //	}
 	
 	@Autowired
-	AccountService accountService;
+	AccountRepository repository;
 
 	@Override
 	@Bean
 	public UserDetailsService userDetailsService() {
 		List<UserDetails> resultList = new ArrayList();
-		resultList.stream().forEach(
+		repository.findAll().stream().forEach(
 				account->{
 					UserDetails user = User.withDefaultPasswordEncoder().username(account.getUsername())
 							.password(account.getPassword()).roles("USER").build();
@@ -57,9 +57,10 @@ public class MyBlogxWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/termsAndPolicies", "/publicList", "/publicBlog", "/register", "/css/**", "/js/**", "/jpeg/**")//
-				.permitAll().anyRequest().authenticated()//
-				.and().formLogin().loginPage("/login.html").loginProcessingUrl("/login").defaultSuccessUrl("/menu.html", true)//
+		http.authorizeRequests()
+				.antMatchers("/login*", "/termsAndPolicies", "/publicList", "/publicBlog", "/register", "/css/**", "/js/**", "/jpeg/**").permitAll().anyRequest().authenticated()//
+				.and().formLogin().loginPage("/login")//
 				.and().logout().permitAll();//
+		
 	}
 }
