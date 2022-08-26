@@ -22,34 +22,33 @@
                 </button>
                 <a class="navbar-brand">Blog Search</a>
                 <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </nav>
 		</div>
-		
         <div id="contents">
             <h1>
-                <span>The first Article</span>
+                <span th:text="${theme}"></span>
             </h1>
-            <p id="writer">write by: <span>Yanagi</span></p>
+            <p id="writer">write by: <span th:text="${writer}"></span></p>
             <hr>
             <div id="summary">
-                <p>
-                    <i><b>--<span>This is the first article from author of this website.</span></b></i>
+                <p th:if="${hasSummary==true}">
+                    <i><b>--<span th:text="${summary}"></span></b></i>
                 </p>
             </div>
             <div id="content">
                 <p>
-                    <span>I like sushi, what about you.</span>
+                    <span th:text="${content}"></span>
                 </p>
-                <div id="date"><p></p>dd</div>
+                <div id="date"><p th:text="${date}"></p></div>
             </div>
             <hr>
             <div id="interact">
-                <span>Like </span>
-                <span>Comment </span>
-                <span>RT </span>
+                <span>Like <span th:text="${likeVol}"></span></span>
+                <span>Comment <span th:text="${commentVol}"></span></span>
+                <span>RT <span th:text="${rtVol}"></span></span>
             </div>
             <div id="back">
                 <input id="back-button" type="button" value="back">

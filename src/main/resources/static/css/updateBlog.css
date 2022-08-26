@@ -2,6 +2,7 @@
     background-color: lightslategray;
 	width: 500px;
 	margin: auto;
+	margin-top: 100px;
 }
 
 #welcome {
@@ -25,11 +26,7 @@
     margin-bottom: 10px;
 }
 
-#blog-content-label {
-    
-}
-
-#submit {
+.button {
 	background-color: cyan;
 	text-align: center;
 	width: 80px;
@@ -60,4 +57,12 @@ body {
 
 .new-blog-label {
 	margin-left: 10px;
+}
+
+.button {
+	background-color: cyan;
+	text-align: center;
+	width: 80px;
+	height: 30px;
+    margin-bottom: 5px;
 }

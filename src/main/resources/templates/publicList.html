@@ -30,9 +30,9 @@
 		
         <div id="contents">
             <h1>
-                <span>LIST</span>
+                <span>PUBLIC LIST</span>
             </h1>
-                <table class="table table-hover">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -46,30 +46,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="blog : ${blogList}">
                         <th scope="row">1</th>
-                        <td><a th:href="@{/publicBlog}">The first article</a></td>
-                        <td>This is the first article from author of the website.</td>
-                        <td>2022-08-25</td>
-                        <td>Yanagi</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a th:text="${blog.theme}" th:href="@{/privateBlog(theme=${blog.theme})}"></a></td>
+                        <td th:text="${blog.summary}"></td>
+                        <td th:text="${blog.date}"></td>
+                        <td th:text="${blog.writer}"></td>
+                        <td th:text="${blog.likeVol}"></td>
+                        <td th:text="${blog.commentVol}"></td>
+                        <td th:text="${blog.rtVol}"></td>
                     </tr>
                 </tbody>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td><a th:href="@{/publicBlog}"><span th:text="${theme-1}"></span></a></td>
-                        <td><span th:text="${summary-1}"></span></td>
-                        <td><span th:text="${last-update-date-1}"></span></td>
-                        <td><span th:text="${writer-1}"></span></td>
-                        <td><span th:text="${like-vol-1}"></span></td>
-                        <td><span th:text="${comment-vol-1}"></span></td>
-                        <td><span th:text="${rt-vol-1}"></span></td>
-                    </tr>
-                </tbody>
-                </table>
+            </table>
+            <div id="back">
+                <a th:href="@{/login}"><input id="back-button" type="button" value="back"></a>
+            </div>
         </div>
     </body>
 </html>

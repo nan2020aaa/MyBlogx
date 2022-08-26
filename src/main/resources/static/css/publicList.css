@@ -20,6 +20,17 @@
 	margin:-10px;
 }
 
+#back-button {
+    background-color: cyan;
+	text-align: center;
+	width: 100px;
+	height: 50px;
+}
+
+#back {
+	text-align: center; 
+}
+
 h1 {
     color: coral;
     text-align: center;

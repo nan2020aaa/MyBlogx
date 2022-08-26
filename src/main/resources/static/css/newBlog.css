@@ -26,11 +26,7 @@
     margin-bottom: 10px;
 }
 
-#blog-content-label {
-    
-}
-
-#submit {
+.button {
 	background-color: cyan;
 	text-align: center;
 	width: 80px;

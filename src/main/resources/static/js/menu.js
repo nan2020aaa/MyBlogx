@@ -10,11 +10,15 @@ $(
         });
         $("#update-blog-button").on("click",()=>
         {
-            window.location.href="/privateList"
+            window.location.href="/updateList"
+        });
+        $("#back-button").on("click",()=>
+        {
+            window.location.href="/login"
         });
         $("#delete-blog-button").on("click",()=>
         {
-            window.location.href="/privateList"
+            window.location.href="/deleteList"
         });
     }
 );

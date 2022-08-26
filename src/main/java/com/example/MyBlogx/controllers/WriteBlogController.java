@@ -17,9 +17,6 @@ public class WriteBlogController {
 	@Autowired
 	BlogService blogService = new BlogService();
 	
-	@Autowired
-	AccountService accountService = new AccountService();
-	
 	@GetMapping("/newBlog")
 	public String getNewBlogPage() {
 		return "/newBlog.html";

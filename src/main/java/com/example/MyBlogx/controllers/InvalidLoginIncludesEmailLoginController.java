@@ -1,3 +1,4 @@
+package com.example.MyBlogx.controllers;
 //package com.example.MyBlogx.controllers;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
