@@ -14,4 +14,6 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
 	Blog save(Blog blog);
 
 	List<Blog> findAll();
+
+	void delete(Blog blog);
 }

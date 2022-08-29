@@ -15,46 +15,45 @@
                 YANAGI BLOG
             </h1>
         </div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="search-bar">
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-		    <span class="navbar-toggler-icon"></span>
-		  </button>
-		  <a class="navbar-brand">Blog Search</a>
-		    <form class="form-inline my-2 my-lg-0">
-		      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		    </form>
-		  </div>
-		</nav>
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" id="search-bar">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand">Blog Search</a>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+        </div>
         <div id="contents">
-            <form th:action="@{/deleteBlog}" method="post">
-                <h1>
-                    <span>kk</span>
-                </h1>
-                <p id="writer">write by: <span>zz</span></p>
-                <hr>
-                <div id="summary">
-                    <p>
-                        <i><b>--<span>yy</span></b></i>
-                    </p>
-                </div>
-                <div id="content">
-                    <p>
-                        <span>xx</span>
-                    </p>
-                    <div id="date"><p></p>dd</div>
-                </div>
-                <hr>
-                <div id="interact">
-                    <span>Like <span></span></span>
-                    <span>Comment <span></span></span>
-                    <span>RT <span></span></span>
-                </div>
-                <div id="back">
-                    <input id="submit" type="submit" value="delete" class="button">
-                    <a th:href="@{/deleteList}"><input id="back-button" type="button" value="back" class="button"></a>
-                </div>
-            </form>
+            <h1>
+                <span th:text="${theme}"></span>
+            </h1>
+            <p id="writer">write by: <span th:text="${writer}"></span></p>
+            <hr>
+            <div id="summary">
+                <p th:if="${hasSummary==true}">
+                    <i><b>--<span th:text="${summary}"></span></b></i>
+                </p>
+            </div>
+            <div id="content">
+                <p>
+                    <span th:text="${content}"></span>
+                </p>
+                <div id="date"><p th:text="${date}"></p></div>
+            </div>
+            <hr>
+            <div id="interact">
+                <span>Like <span th:text="${likeVol}"></span></span>
+                <span>Comment <span th:text="${commentVol}"></span></span>
+                <span>RT <span th:text="${rtVol}"></span></span>
+            </div>
+            <div id="back">
+                <a th:href="@{/deleteConfirm(theme=${theme})}"><input id="delete-button" type="button" value="delete" class="button"></a>
+                <a th:href="@{/deleteList}"><input id="back-button" type="button" value="back" class="button"></a>
+            </div>
         </div>
     </body>
 </html>

@@ -22,8 +22,8 @@
                 </button>
                 <a class="navbar-brand">Blog Search</a>
                 <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </nav>
         </div>
@@ -46,15 +46,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="blog : ${blogList}">
                         <th scope="row">1</th>
-                        <td><a th:href="@{/deleteBlog}">The first article</a></td>
-                        <td>This is the first article from author of the website.</td>
-                        <td>2022-08-25</td>
-                        <td>Yanagi</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><a th:text="${blog.theme}" th:href="@{/deleteBlog(theme=${blog.theme})}"></a></td>
+                        <td th:text="${blog.summary}"></td>
+                        <td th:text="${blog.date}"></td>
+                        <td th:text="${blog.writer}"></td>
+                        <td th:text="${blog.likeVol}"></td>
+                        <td th:text="${blog.commentVol}"></td>
+                        <td th:text="${blog.rtVol}"></td>
                     </tr>
                 </tbody>
             </table>

@@ -15,22 +15,22 @@ import com.example.MyBlogx.repositories.BlogRepository;
 
 @Controller
 public class UpdateBlogController {
-	
+
 	@Autowired
 	BlogRepository repository;
-	
+
 	@GetMapping("/updateList")
 	public ModelAndView getUpdateListPage(@AuthenticationPrincipal UserDetails user, ModelAndView mav) {
 		List<Blog> blogList = new ArrayList<>();
 		repository.findAll().stream().forEach(blog -> {
-			if (blog.getWriter() == user.getUsername()) {
+			if (blog.getWriter().equals(user.getUsername())) {
 				blogList.add(blog);
 			}
 		});
 		mav.addObject("blogList", blogList);
 		return mav;
 	}
-	
+
 	@GetMapping("/updateBlog")
 	public String getUpdateBlogPage() {
 		return "updateBlog.html";

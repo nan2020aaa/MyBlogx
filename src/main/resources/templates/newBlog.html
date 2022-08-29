@@ -20,6 +20,7 @@
                 <h1>
                     NEW BLOG
                 </h1>
+                <p><span th:if="${themeExisted==true}">The title has already existed, please turn to "Yanagi Change".</span></p>
                 <div id="new-title">
                     <label for="blog-title" id="blog-title-label" class="new-blog-label">Title: </label>
                     <input id="blog-title" type="text" placeholder="Please input the title of your new blog here." required class="new-blog" name="theme">
