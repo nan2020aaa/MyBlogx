@@ -6,8 +6,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.bundle.min.js"></script>
-		<link rel="stylesheet" href="../static/css/updateBlog.css" th:href="@{/css/updateBlog.css}">
-		<script href="../static/js/updateBlog.js" th:src="@{/js/updateBlog.js}"></script>  
+		<link rel="stylesheet" href="../static/css/egoUpdateBlog.css" th:href="@{/css/egoUpdateBlog.css}">
+		<script href="../static/js/egoUpdateBlog.js" th:src="@{/js/egoUpdateBlog.js}"></script>  
     </head>
     <body>
         <div id="div-head">
@@ -16,7 +16,7 @@
             </h1>
         </div>
         <div id="contents">
-            <form th:action="@{/updateBlog}" method="post">
+            <form th:action="@{/egoUpdateBlog}" method="post">
                 <h1>
                     UPDATE BLOG
                 </h1>
@@ -36,7 +36,7 @@
                 </div>
                 <div id="button">
                     <input id="submit" type="submit" value="update" class="button">
-                    <a th:href="@{/updateList}"><input id="back-button" type="button" value="back" class="button"></a>
+                    <a th:href="@{/egoPage}"><input id="back-button" type="button" value="back" class="button"></a>
                 </div>
             </form>
         </div>

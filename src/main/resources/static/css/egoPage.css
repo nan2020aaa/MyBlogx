@@ -1,0 +1,66 @@
+#contents {
+    background-color: lightslategray;
+	width: 1200px;
+	margin:auto;
+	margin-top: 100px;
+	padding: 10px;
+}
+
+#welcome {
+	color:black;
+	text-align: left;
+	margin-left: 10px;
+}
+
+#div-head {
+	background-color: blueviolet;
+}
+
+#summary {
+    text-align: center;
+}
+
+#content {
+    text-align: center;
+}
+
+#back {
+	text-align: center; 
+}
+
+#interact {
+	text-align: right;
+}
+
+#search-bar {
+	margin:-10px;
+}
+
+#date {
+	color: cornflowerblue;
+	text-align: right;
+}
+
+#new {
+	text-align: right;
+	margin-right: 10px;
+}
+
+.button {
+    background-color: cyan;
+	text-align: center;
+	width: 100px;
+	height: 50px;
+}
+
+h1 {
+    color: coral;
+    text-align: center;
+}
+
+body {
+    background-image: url(../jpeg/backgroundImage.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 80%;
+}

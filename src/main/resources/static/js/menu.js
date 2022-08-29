@@ -20,5 +20,9 @@ $(
         {
             window.location.href="/deleteList"
         });
+        $("#inter-ego-page-button").on("click",()=>
+        {
+            window.location.href="/egoPage"
+        });
     }
 );

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Ego Blog Zone</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.bundle.min.js"></script>
+		<link rel="stylesheet" href="../static/css/egoPage.css" th:href="@{/css/egoPage.css}">
+		<script href="../static/js/egoPage.js" th:src="@{/js/egoPage.js}"></script>
+    </head>
+    <body>
+        <div id="div-head">
+            <h1 id="welcome">
+                YANAGI BLOG
+                <div id="new">
+                    <a th:href="@{/egoNewBlog}"><input id="new-button" type="button" value="new" class="button"></a>
+                </div>
+            </h1>
+        </div>
+        <div id="contents" th:each="blog : ${blogList}">
+            <h1>
+                <span th:text="${blog.theme}"></span>
+            </h1>
+            <hr>
+            <div id="summary">
+                <p th:if="${hasSummary==true}">
+                    <i><b>--<span th:text="${blog.summary}"></span></b></i>
+                </p>
+            </div>
+            <div id="content">
+                <p>
+                    <span th:text="${blog.content}"></span>
+                </p>
+                <div id="date"><p th:text="${blog.date}"></p></div>
+            </div>
+            <hr>
+            <div id="interact">
+                <span>Like <span th:text="${blog.likeVol}"></span></span>
+                <span>Comment <span th:text="${blog.commentVol}"></span></span>
+                <span>RT <span th:text="${blog.rtVol}"></span></span>
+            </div>
+            <div id="back">
+                <a th:href="@{/egoUpdateBlog(theme=${blog.theme})}"><input id="update-button" type="button" value="update" class="button"></a>
+                <a th:href="@{/egoDeleteConfirm(theme=${blog.theme})}"><input id="delete-button" type="button" value="delete" class="button"></a>
+                <a th:href="@{/menu}"><input id="back-button" type="button" value="back" class="button"></a>
+            </div>
+        </div>
+    </body>
+</html>

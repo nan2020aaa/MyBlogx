@@ -58,7 +58,8 @@ public class MyBlogxWebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/login*", "/termsAndPolicies", "/publicList", "/publicBlog", "/register", "/css/**", "/js/**", "/jpeg/**").permitAll().anyRequest().authenticated()//
+				.antMatchers("/login*", "/termsAndPolicies", "/publicList", "/publicBlog", "/register", "/css/**", "/js/**", "/jpeg/**").permitAll()//
+				.anyRequest().authenticated()//
 				.and().formLogin().loginPage("/login")//
 				.and().logout().permitAll();//
 		

@@ -24,7 +24,7 @@ public class SeeBlogController {
 	public ModelAndView getPublicListPage(ModelAndView mav) {
 		List<Blog> blogList = new ArrayList<>();
 		repository.findAll().stream().forEach(blog -> {
-			if (blog.getWriter() == "Yanagi") {
+			if (blog.getWriter().equals("Yanagi")) {
 				blogList.add(blog);
 			}
 		});
