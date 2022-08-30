@@ -51,7 +51,7 @@
                         <td><a th:text="${blog.theme}" th:href="@{/publicBlog(theme=${blog.theme})}"></a></td>
                         <td th:text="${blog.summary}"></td>
                         <td th:text="${blog.date}"></td>
-                        <td th:text="${blog.writer}"></td>
+                        <td><a th:text="${blog.writer}" th:href="@{/linkedEgoPage(writer=${blog.writer})}"></a></td>
                         <td th:text="${blog.likeVol}"></td>
                         <td th:text="${blog.commentVol}"></td>
                         <td th:text="${blog.rtVol}"></td>

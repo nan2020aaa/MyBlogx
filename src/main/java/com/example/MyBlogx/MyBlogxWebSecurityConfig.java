@@ -13,44 +13,24 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.example.MyBlogx.repositories.AccountRepository;
 import com.example.MyBlogx.services.AccountService;
 
 @Configuration
 @EnableWebSecurity
 public class MyBlogxWebSecurityConfig extends WebSecurityConfigurerAdapter {
-//	@Autowired
-//	AccountRepository repository;
-//
-//	@Override
-//	@Bean
-//	public UserDetailsService userDetailsService() {
-//		List<UserDetails> resultList = new ArrayList();
-//		repository.findAll().stream().forEach(account -> {
-//			UserDetails user = User.withDefaultPasswordEncoder().username(account.getUsername())
-//					.password(account.getPassword()).roles("USER").build();
-//			resultList.add(user);
-//		});
-//
-//		return new InMemoryUserDetailsManager(resultList);
-//	}
-	
 	@Autowired
-	AccountRepository repository;
+	AccountService accountService;
 
 	@Override
 	@Bean
 	public UserDetailsService userDetailsService() {
 		List<UserDetails> resultList = new ArrayList();
-		repository.findAll().stream().forEach(
-				account->{
-					UserDetails user = User.withDefaultPasswordEncoder().username(account.getUsername())
-							.password(account.getPassword()).roles("USER").build();
-					resultList.add(user);
-				}
-				);
+		accountService.getAllAccount().stream().forEach(account -> {
+			UserDetails user = User.withDefaultPasswordEncoder().username(account.getUsername())
+					.password(account.getPassword()).roles("USER").build();
+			resultList.add(user);
+		});
 
 		return new InMemoryUserDetailsManager(resultList);
 	}
@@ -58,10 +38,12 @@ public class MyBlogxWebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/login*", "/termsAndPolicies", "/publicList", "/publicBlog", "/register", "/css/**", "/js/**", "/jpeg/**").permitAll()//
+				.antMatchers("/login*", "/termsAndPolicies", "/publicList", "/publicBlog", "/register", "/css/**",
+						"/js/**", "/jpeg/**")
+				.permitAll()//
 				.anyRequest().authenticated()//
 				.and().formLogin().loginPage("/login")//
 				.and().logout().permitAll();//
-		
+
 	}
 }

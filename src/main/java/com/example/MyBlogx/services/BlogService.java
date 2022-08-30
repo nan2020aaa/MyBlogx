@@ -1,6 +1,7 @@
 package com.example.MyBlogx.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,23 @@ public class BlogService {
 	BlogRepository repository;
 
 	public void createNewBlog(String theme, String summary, String content, String writer) {
-		repository.save(new Blog(theme, summary, content, writer, 0, 0, 0, LocalDateTime.now()));
+		repository.save(new Blog(theme, summary, content, writer, 0, 0, 0, LocalDateTime.now().withNano(0)));
 	}
+
+	public List<Blog> getAllBlog() {
+		return repository.findAll();
+	}
+
+	public Blog getBlogByTheme(String theme) {
+		return repository.findByTheme(theme);
+	}
+
+	public void deleteBlog(Blog blog) {
+		repository.delete(blog);
+	}
+
+//	public long counter() {
+//		long counter = 1;
+//		return counter++;
+//	}
 }

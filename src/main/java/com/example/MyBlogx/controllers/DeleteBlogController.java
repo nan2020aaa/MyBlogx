@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.MyBlogx.models.Blog;
-import com.example.MyBlogx.repositories.BlogRepository;
+import com.example.MyBlogx.services.BlogService;
 
 @Controller
 public class DeleteBlogController {
 	@Autowired
-	BlogRepository repository;
+	BlogService blogService;
 
 	@GetMapping("/deleteList")
 	public ModelAndView getDeleteListPage(@AuthenticationPrincipal UserDetails user, ModelAndView mav) {
 		List<Blog> blogList = new ArrayList<>();
-		repository.findAll().stream().forEach(blog -> {
+		blogService.getAllBlog().stream().forEach(blog -> {
 			if (blog.getWriter().equals(user.getUsername())) {
 				blogList.add(blog);
 			}
@@ -33,7 +33,7 @@ public class DeleteBlogController {
 
 	@GetMapping("/deleteBlog")
 	public ModelAndView getDeleteBlogPage(@RequestParam String theme, ModelAndView mav) {
-		Blog targetBlog = repository.findByTheme(theme);
+		Blog targetBlog = blogService.getBlogByTheme(theme);
 		mav.addObject("theme", theme);
 		if (targetBlog.getSummary() != null) {
 			mav.addObject("hasSummary", true);
@@ -53,8 +53,8 @@ public class DeleteBlogController {
 	@GetMapping("/deleteConfirm")
 	public ModelAndView getDeleteConfirmPage(@RequestParam String theme, ModelAndView mav) {
 		mav.addObject("theme", theme);
-		Blog targetBlog = repository.findByTheme(theme);
-		repository.delete(targetBlog);
+		Blog targetBlog = blogService.getBlogByTheme(theme);
+		blogService.deleteBlog(targetBlog);
 		return mav;
 	}
 }

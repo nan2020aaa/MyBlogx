@@ -10,20 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.MyBlogx.models.Blog;
-import com.example.MyBlogx.repositories.BlogRepository;
-import com.example.MyBlogx.services.AccountService;
 import com.example.MyBlogx.services.BlogService;
 
 @Controller
-public class SeeBlogController {
-
+public class ShowBlogController {
 	@Autowired
-	BlogRepository repository;
+	BlogService blogService;
 
 	@GetMapping("/publicList")
 	public ModelAndView getPublicListPage(ModelAndView mav) {
 		List<Blog> blogList = new ArrayList<>();
-		repository.findAll().stream().forEach(blog -> {
+		blogService.getAllBlog().stream().forEach(blog -> {
 			if (blog.getWriter().equals("Yanagi")) {
 				blogList.add(blog);
 			}
@@ -35,7 +32,7 @@ public class SeeBlogController {
 	@GetMapping("/privateList")
 	public ModelAndView getPrivateListPage(ModelAndView mav) {
 		List<Blog> blogList = new ArrayList<>();
-		repository.findAll().stream().forEach(blog -> {
+		blogService.getAllBlog().stream().forEach(blog -> {
 			blogList.add(blog);
 		});
 		mav.addObject("blogList", blogList);
@@ -44,7 +41,7 @@ public class SeeBlogController {
 
 	@GetMapping("/publicBlog")
 	public ModelAndView getPublicBlogPage(@RequestParam String theme, ModelAndView mav) {
-		Blog targetBlog = repository.findByTheme(theme);
+		Blog targetBlog = blogService.getBlogByTheme(theme);
 		mav.addObject("theme", theme);
 		if (targetBlog.getSummary() != null) {
 			mav.addObject("hasSummary", true);
@@ -63,7 +60,7 @@ public class SeeBlogController {
 
 	@GetMapping("/privateBlog")
 	public ModelAndView getPrivateBlogPage(@RequestParam String theme, ModelAndView mav) {
-		Blog targetBlog = repository.findByTheme(theme);
+		Blog targetBlog = blogService.getBlogByTheme(theme);
 		mav.addObject("theme", theme);
 		if (targetBlog.getSummary() != null) {
 			mav.addObject("hasSummary", true);

@@ -47,11 +47,11 @@
                 </thead>
                 <tbody>
                     <tr th:each="blog : ${blogList}">
-                        <th scope="row">1</th>
+                        <th scope="row" th:text="${blog.id}"></th>
                         <td><a th:text="${blog.theme}" th:href="@{/privateBlog(theme=${blog.theme})}"></a></td>
                         <td th:text="${blog.summary}"></td>
                         <td th:text="${blog.date}"></td>
-                        <td th:text="${blog.writer}"></td>
+                        <td><a th:text="${blog.writer}" th:href="@{/linkedEgoPage(writer=${blog.writer})}"></a></td>
                         <td th:text="${blog.likeVol}"></td>
                         <td th:text="${blog.commentVol}"></td>
                         <td th:text="${blog.rtVol}"></td>

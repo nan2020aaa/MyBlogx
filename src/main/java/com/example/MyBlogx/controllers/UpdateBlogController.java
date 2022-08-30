@@ -13,22 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.MyBlogx.models.Blog;
-import com.example.MyBlogx.repositories.BlogRepository;
 import com.example.MyBlogx.services.BlogService;
 
 @Controller
 public class UpdateBlogController {
-
-	@Autowired
-	BlogRepository repository;
-
 	@Autowired
 	BlogService blogService = new BlogService();
 
 	@GetMapping("/updateList")
 	public ModelAndView getUpdateListPage(@AuthenticationPrincipal UserDetails user, ModelAndView mav) {
 		List<Blog> blogList = new ArrayList<>();
-		repository.findAll().stream().forEach(blog -> {
+		blogService.getAllBlog().stream().forEach(blog -> {
 			if (blog.getWriter().equals(user.getUsername())) {
 				blogList.add(blog);
 			}
@@ -39,7 +34,7 @@ public class UpdateBlogController {
 
 	@GetMapping("/updateBlog")
 	public ModelAndView getUpdateBlogPage(@RequestParam String theme, ModelAndView mav) {
-		Blog targetBlog = repository.findByTheme(theme);
+		Blog targetBlog = blogService.getBlogByTheme(theme);
 		mav.addObject("theme", theme);
 		if (targetBlog.getSummary() != null) {
 			mav.addObject("hasSummary", true);
@@ -54,8 +49,8 @@ public class UpdateBlogController {
 	@PostMapping("/updateBlog")
 	public ModelAndView updateBlog(@AuthenticationPrincipal UserDetails user, @RequestParam String theme,
 			@RequestParam String summary, @RequestParam String content, ModelAndView mav) {
-		Blog targetBlog = repository.findByTheme(theme);
-		repository.delete(targetBlog);
+		Blog targetBlog = blogService.getBlogByTheme(theme);
+		blogService.deleteBlog(targetBlog);
 		blogService.createNewBlog(theme, summary, content, user.getUsername());
 		mav.setViewName("/menu");
 		return mav;

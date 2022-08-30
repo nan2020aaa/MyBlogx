@@ -1,5 +1,7 @@
 package com.example.MyBlogx.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,10 @@ public class AccountService {
 		} else {
 			return false;
 		}
+	}
+
+	public List<Account> getAllAccount() {
+		return repository.findAll();
 	}
 
 	// loginに使う。
