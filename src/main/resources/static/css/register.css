@@ -69,6 +69,10 @@ h1 {
 	text-align: left;
 }
 
+.notition {
+	margin-left: 10px;
+}
+
 body {
 	background-image: url(../jpeg/backgroundImage.jpeg);
 	background-repeat: no-repeat;

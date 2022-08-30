@@ -35,7 +35,6 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Summary</th>
                         <th scope="col">Last update</th>
@@ -47,8 +46,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="blog : ${blogList}">
-                        <th scope="row">1</th>
-                        <td><a th:text="${blog.theme}" th:href="@{/deleteBlog(theme=${blog.id})}"></a></td>
+                        <td><a th:text="${blog.theme}" th:href="@{/deleteBlog(id=${blog.id})}"></a></td>
                         <td th:text="${blog.summary}"></td>
                         <td th:text="${blog.date}"></td>
                         <td th:text="${blog.writer}"></td>

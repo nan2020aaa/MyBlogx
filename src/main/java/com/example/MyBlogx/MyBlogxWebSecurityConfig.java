@@ -22,6 +22,8 @@ public class MyBlogxWebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	AccountService accountService;
 
+	public static InMemoryUserDetailsManager manager;
+
 	@Override
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -31,8 +33,8 @@ public class MyBlogxWebSecurityConfig extends WebSecurityConfigurerAdapter {
 					.password(account.getPassword()).roles("USER").build();
 			resultList.add(user);
 		});
-
-		return new InMemoryUserDetailsManager(resultList);
+		manager = new InMemoryUserDetailsManager(resultList);
+		return manager;
 	}
 
 	@Override
@@ -44,6 +46,5 @@ public class MyBlogxWebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()//
 				.and().formLogin().loginPage("/login")//
 				.and().logout().permitAll();//
-
 	}
 }

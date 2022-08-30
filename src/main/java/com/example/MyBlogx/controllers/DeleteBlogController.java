@@ -47,6 +47,7 @@ public class DeleteBlogController {
 		mav.addObject("likeVol", targetBlog.getLikeVol());
 		mav.addObject("commentVol", targetBlog.getCommentVol());
 		mav.addObject("rtVol", targetBlog.getRtVol());
+		mav.addObject("id", id);
 		return mav;
 	}
 

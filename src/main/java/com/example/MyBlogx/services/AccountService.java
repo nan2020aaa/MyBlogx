@@ -3,8 +3,11 @@ package com.example.MyBlogx.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.example.MyBlogx.MyBlogxWebSecurityConfig;
 import com.example.MyBlogx.models.Account;
 import com.example.MyBlogx.repositories.AccountRepository;
 
@@ -62,6 +65,9 @@ public class AccountService {
 			String picture) {
 		if ((!hasExisted(username)) && passwordMatch(password, repeatPassword)) {
 			repository.save(new Account(username, password, email, picture));
+			UserDetails user = User.withDefaultPasswordEncoder().username(username).password(password).roles("USER")
+					.build();
+			MyBlogxWebSecurityConfig.manager.createUser(user);
 			return true;
 		} else {
 			return false;
