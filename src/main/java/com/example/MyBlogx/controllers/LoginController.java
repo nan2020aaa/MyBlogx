@@ -23,13 +23,4 @@ public class LoginController {
 	public String getLoginPage() {
 		return "login.html";
 	}
-
-	@PostMapping("/login")
-	public ModelAndView login(@RequestParam String username, @RequestParam String password, ModelAndView mav) {
-		mav.addObject("isInitial", false);
-		if (!(accountService.validateAccount(username, password))) {
-			mav.setViewName("login.html");
-		}
-		return mav;
-	}
 }

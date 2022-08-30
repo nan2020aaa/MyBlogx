@@ -16,7 +16,7 @@ public class AccountService {
 	// 普通のログインする方法。
 	public boolean validateAccount(String username, String password) {
 		Account account = repository.findByUsername(username);
-		if (!isExist(username)) {
+		if (!hasExisted(username)) {
 			return false;
 		} else if (account.getPassword().equals(password)) {
 			return true;
@@ -60,7 +60,7 @@ public class AccountService {
 	// registerに使う。
 	public boolean createAccount(String username, String password, String repeatPassword, String email,
 			String picture) {
-		if ((!isExist(username)) && passwordMatch(password, repeatPassword)) {
+		if ((!hasExisted(username)) && passwordMatch(password, repeatPassword)) {
 			repository.save(new Account(username, password, email, picture));
 			return true;
 		} else {
@@ -76,7 +76,7 @@ public class AccountService {
 		}
 	}
 
-	public boolean isExist(String username) {
+	public boolean hasExisted(String username) {
 		if (repository.findByUsername(username) != null) {
 			return true;
 		} else {

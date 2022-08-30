@@ -22,12 +22,14 @@
 			<form th:action="@{/register}" method="post">
 				<div>
 					<h1>REGISTER</h1>
-					<!--
-						<p th:if="${isMatch==false}" class="judgement">Password input twice do not match.</p>
-						<p th:if="${isExist==true}" color="judgement">Account has existed.</p>
-						<hr>
-					-->
-					<p>Please fill out this form to create a new account.</p>
+					<p th:if="${isMatch==false}" class="alert alert-danger" role="alert">
+						Password input twice do not match.
+					</p>
+					<p th:if="${hasExisted==true}" class="alert alert-danger" role="alert">
+						Account has existed.
+					</p>
+					<hr>
+					<p class="alert alert-info" role="alert">Please fill out this form to create a new account.</p>
 				</div>
 				<div>
 					<label id="username-label" for="username">Username</label>
@@ -78,7 +80,7 @@
 				</div>
 				<hr>
 				<div>
-					<p>Already have an account? <a th:href="@{/login}" target="_blank"><i>Sign in</i></a>.</p>
+					<p>Already have an account? <a th:href="@{/login}"><i>Sign in</i></a>.</p>
 				</div>
 			</form>
 		</div>

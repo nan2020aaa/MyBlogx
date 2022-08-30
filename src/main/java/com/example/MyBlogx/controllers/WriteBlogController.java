@@ -24,12 +24,7 @@ public class WriteBlogController {
 	@PostMapping("/newBlog")
 	public ModelAndView writeBlog(@AuthenticationPrincipal UserDetails user, @RequestParam String theme,
 			@RequestParam String summary, @RequestParam String content, ModelAndView mav) {
-		if (blogService.getBlogByTheme(theme) == null) {
-			mav.addObject("themeExisted", false);
-			blogService.createNewBlog(theme, summary, content, user.getUsername());
-		} else {
-			mav.addObject("themeExisted", true);
-		}
+		blogService.createNewBlog(theme, summary, content, user.getUsername());
 		mav.setViewName("/menu.html");
 		return mav;
 	}

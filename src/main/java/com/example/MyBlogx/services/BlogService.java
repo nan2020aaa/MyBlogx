@@ -22,8 +22,12 @@ public class BlogService {
 		return repository.findAll();
 	}
 
-	public Blog getBlogByTheme(String theme) {
-		return repository.findByTheme(theme);
+//	public Blog getBlogByTheme(String theme) {
+//		return repository.findByTheme(theme);
+//	}
+
+	public Blog getBlogById(long id) {
+		return repository.findById(id);
 	}
 
 	public void deleteBlog(Blog blog) {

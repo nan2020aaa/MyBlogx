@@ -26,7 +26,9 @@
 	<div id="contents">
 		<form th:action="@{/login}" method="post">
 			<h1>LOGIN</h1>
-			<p th:if="${isInitial==false}" class="judgement">Username or password error!</p>
+			<p th:if="${param.error}" class="alert alert-danger" role="alert">
+				Username or password error!
+			</p>
 			<hr>
 			<label for="username" id="username-label">UserName: </label>
 			<input id="username" type="text" name="username" placeholder="username/Email" required>

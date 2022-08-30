@@ -35,6 +35,7 @@
                     <input id="blog-content" type="text" th:value="${content}" class="new-blog" required name="content">
                 </div>
                 <div id="button">
+                    <input type="hidden" name="id" th:value="${id}">
                     <input id="submit" type="submit" value="update" class="button">
                     <a th:href="@{/updateList}"><input id="back-button" type="button" value="back" class="button"></a>
                 </div>

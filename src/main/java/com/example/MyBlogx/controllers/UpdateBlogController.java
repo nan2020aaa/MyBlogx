@@ -33,9 +33,9 @@ public class UpdateBlogController {
 	}
 
 	@GetMapping("/updateBlog")
-	public ModelAndView getUpdateBlogPage(@RequestParam String theme, ModelAndView mav) {
-		Blog targetBlog = blogService.getBlogByTheme(theme);
-		mav.addObject("theme", theme);
+	public ModelAndView getUpdateBlogPage(@RequestParam long id, ModelAndView mav) {
+		Blog targetBlog = blogService.getBlogById(id);
+		mav.addObject("theme", targetBlog.getTheme());
 		if (targetBlog.getSummary() != null) {
 			mav.addObject("hasSummary", true);
 			mav.addObject("summary", targetBlog.getSummary());
@@ -43,13 +43,14 @@ public class UpdateBlogController {
 			mav.addObject("hasSummary", false);
 		}
 		mav.addObject("content", targetBlog.getContent());
+		mav.addObject("id", id);
 		return mav;
 	}
 
 	@PostMapping("/updateBlog")
-	public ModelAndView updateBlog(@AuthenticationPrincipal UserDetails user, @RequestParam String theme,
-			@RequestParam String summary, @RequestParam String content, ModelAndView mav) {
-		Blog targetBlog = blogService.getBlogByTheme(theme);
+	public ModelAndView updateBlog(@AuthenticationPrincipal UserDetails user, @RequestParam long id,
+			@RequestParam String theme, @RequestParam String summary, @RequestParam String content, ModelAndView mav) {
+		Blog targetBlog = blogService.getBlogById(id);
 		blogService.deleteBlog(targetBlog);
 		blogService.createNewBlog(theme, summary, content, user.getUsername());
 		mav.setViewName("/menu");

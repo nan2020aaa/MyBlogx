@@ -40,9 +40,9 @@ public class ShowBlogController {
 	}
 
 	@GetMapping("/publicBlog")
-	public ModelAndView getPublicBlogPage(@RequestParam String theme, ModelAndView mav) {
-		Blog targetBlog = blogService.getBlogByTheme(theme);
-		mav.addObject("theme", theme);
+	public ModelAndView getPublicBlogPage(@RequestParam long id, ModelAndView mav) {
+		Blog targetBlog = blogService.getBlogById(id);
+		mav.addObject("theme", targetBlog.getTheme());
 		if (targetBlog.getSummary() != null) {
 			mav.addObject("hasSummary", true);
 			mav.addObject("summary", targetBlog.getSummary());
@@ -59,9 +59,9 @@ public class ShowBlogController {
 	}
 
 	@GetMapping("/privateBlog")
-	public ModelAndView getPrivateBlogPage(@RequestParam String theme, ModelAndView mav) {
-		Blog targetBlog = blogService.getBlogByTheme(theme);
-		mav.addObject("theme", theme);
+	public ModelAndView getPrivateBlogPage(@RequestParam long id, ModelAndView mav) {
+		Blog targetBlog = blogService.getBlogById(id);
+		mav.addObject("theme", targetBlog.getTheme());
 		if (targetBlog.getSummary() != null) {
 			mav.addObject("hasSummary", true);
 			mav.addObject("summary", targetBlog.getSummary());

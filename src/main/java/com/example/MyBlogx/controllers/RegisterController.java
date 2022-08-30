@@ -32,10 +32,10 @@ public class RegisterController {
 		if (isSuccessful) {
 			mav.setViewName("/login");
 		} else {
-			if (accountService.isExist(username)) {
-				mav.addObject("isExist", true);
-			} else if (!(accountService.passwordMatch(password, repeatPassword))) {
+			if (!(accountService.passwordMatch(password, repeatPassword))) {
 				mav.addObject("isMatch", false);
+			} else if (accountService.hasExisted(username)) {
+				mav.addObject("hasExisted", true);
 			}
 			mav.setViewName("/register");
 		}
