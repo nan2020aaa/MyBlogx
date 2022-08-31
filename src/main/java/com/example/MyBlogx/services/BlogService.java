@@ -22,10 +22,6 @@ public class BlogService {
 		return repository.findAll();
 	}
 
-//	public Blog getBlogByTheme(String theme) {
-//		return repository.findByTheme(theme);
-//	}
-
 	public Blog getBlogById(long id) {
 		return repository.findById(id);
 	}
@@ -33,9 +29,4 @@ public class BlogService {
 	public void deleteBlog(Blog blog) {
 		repository.delete(blog);
 	}
-
-//	public long counter() {
-//		long counter = 1;
-//		return counter++;
-//	}
 }

@@ -1,6 +1,7 @@
 package com.example.MyBlogx.models;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class Blog {
 
 	@Column
 	private String content;
-	
+
 	@Column
 	private String writer;
 
@@ -124,5 +125,25 @@ public class Blog {
 		this.rtVol = rtVol;
 		this.date = date;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(commentVol, content, date, id, likeVol, rtVol, summary, theme, writer);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Blog other = (Blog) obj;
+		return commentVol == other.commentVol && Objects.equals(content, other.content)
+				&& Objects.equals(date, other.date) && id == other.id && likeVol == other.likeVol
+				&& rtVol == other.rtVol && Objects.equals(summary, other.summary) && Objects.equals(theme, other.theme)
+				&& Objects.equals(writer, other.writer);
+	}
+
 }

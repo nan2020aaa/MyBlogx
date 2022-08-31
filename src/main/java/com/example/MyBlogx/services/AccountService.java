@@ -16,6 +16,22 @@ public class AccountService {
 	@Autowired
 	AccountRepository repository;
 
+	public boolean passwordMatch(String password, String repeatPassword) {
+		if (password.equals(repeatPassword)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean hasExisted(String username) {
+		if (repository.findByUsername(username) != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	// 普通のログインする方法。
 	public boolean validateAccount(String username, String password) {
 		Account account = repository.findByUsername(username);
@@ -30,6 +46,20 @@ public class AccountService {
 
 	public List<Account> getAllAccount() {
 		return repository.findAll();
+	}
+
+	// registerに使う。
+	public boolean createAccount(String username, String password, String repeatPassword, String email,
+			String picture) {
+		if ((!hasExisted(username)) && passwordMatch(password, repeatPassword)) {
+			repository.save(new Account(username, password, email, picture));
+			UserDetails user = User.withDefaultPasswordEncoder().username(username).password(password).roles("USER")
+					.build();
+			MyBlogxWebSecurityConfig.manager.createUser(user);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// loginに使う。
@@ -59,34 +89,4 @@ public class AccountService {
 //		Account account = repository.findByEmail(usernameOrEmail);
 //		return account.getUsername();
 //	}
-
-	// registerに使う。
-	public boolean createAccount(String username, String password, String repeatPassword, String email,
-			String picture) {
-		if ((!hasExisted(username)) && passwordMatch(password, repeatPassword)) {
-			repository.save(new Account(username, password, email, picture));
-			UserDetails user = User.withDefaultPasswordEncoder().username(username).password(password).roles("USER")
-					.build();
-			MyBlogxWebSecurityConfig.manager.createUser(user);
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean passwordMatch(String password, String repeatPassword) {
-		if (password.equals(repeatPassword)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean hasExisted(String username) {
-		if (repository.findByUsername(username) != null) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }
