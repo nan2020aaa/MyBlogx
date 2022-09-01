@@ -28,6 +28,7 @@ public class DeleteBlogController {
 			}
 		});
 		mav.addObject("blogList", blogList);
+		mav.setViewName("/deleteList");
 		return mav;
 	}
 
@@ -48,14 +49,18 @@ public class DeleteBlogController {
 		mav.addObject("commentVol", targetBlog.getCommentVol());
 		mav.addObject("rtVol", targetBlog.getRtVol());
 		mav.addObject("id", id);
+		mav.setViewName("/deleteBlog");
 		return mav;
 	}
+	
+	
 
 	@GetMapping("/deleteConfirm")
 	public ModelAndView getDeleteConfirmPage(@RequestParam Long id, ModelAndView mav) {
 		Blog targetBlog = blogService.getBlogById(id);
 		mav.addObject("theme", targetBlog.getTheme());
 		blogService.deleteBlog(targetBlog);
+		mav.setViewName("/deleteConfirm");
 		return mav;
 	}
 }

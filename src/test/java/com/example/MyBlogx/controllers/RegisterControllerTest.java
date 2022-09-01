@@ -3,6 +3,8 @@ package com.example.MyBlogx.controllers;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -12,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -29,26 +33,21 @@ public class RegisterControllerTest {
 
 	@BeforeEach
 	public void prepareData() {
-		final String password = any();
-		final String correctRepeatPassword = password;
-		String wrongRepeatPassword = any();
-		while (true) {
-			if (password.equals(wrongRepeatPassword)) {
-				wrongRepeatPassword = any();
-			} else {
-				break;
-			}
-		}
-		when(accountService.createAccount(any(), any(), password, correctRepeatPassword, any())).thenReturn(true);
-		when(accountService.createAccount(eq("Alice"), any(), any(), any(), any())).thenReturn(false);
-		when(accountService.createAccount(any(), any(), password, wrongRepeatPassword, any())).thenReturn(false);
-		when(accountService.validateAccount(any(), any())).thenReturn(false);
-		when(accountService.validateAccount("Alice", "xxx")).thenReturn(true);
+		when(accountService.createAccount(any(), eq("xxx"), eq("xxx"), any(), eq("xxx"))).thenReturn(true);
+		when(accountService.createAccount(any(), any(), any(), any(), eq("xxx"))).thenReturn(false);
+		when(accountService.createAccount(eq("Alice"), eq("xxx"), eq("xxx"), any(), eq("xxx"))).thenReturn(false);
 	}
 
 	@Test
 	public void testGetRegisterPage_Succeed() throws Exception {
-		RequestBuilder request = MockMvcRequestBuilders.get("/register");
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders.get("/register").with(csrf())
+				.with(user(alice));
 
 		mockMvc.perform(request).andExpect(view().name("register.html"))
 				.andExpect(model().attributeDoesNotExist("error"));
@@ -56,7 +55,14 @@ public class RegisterControllerTest {
 
 	@Test
 	public void testGetTermsAndPoliciesPage_Succeed() throws Exception {
-		RequestBuilder request = MockMvcRequestBuilders.get("/termsAndPolicies");
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders.get("/termsAndPolicies").with(csrf())
+				.with(user(alice));
 
 		mockMvc.perform(request).andExpect(view().name("termsAndPolicies.html"))
 				.andExpect(model().attributeDoesNotExist("error"));
@@ -64,25 +70,64 @@ public class RegisterControllerTest {
 
 	@Test
 	public void testRegister_NewUsernameAndPasswordMatch_Succeed() throws Exception {
-		RequestBuilder request = MockMvcRequestBuilders.post("/register").param("username", "Bob")
-				.param("password", "Bob54321").param("repeatPassword", "Bob54321");
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/register")
+				.with(csrf())
+				.with(user(alice))
+				.param("username", "Bob")
+				.param("password", "xxx")
+				.param("repeatPassword", "xxx")
+				.param("email", "x")
+				.param("picture", "xxx");
 
-		mockMvc.perform(request).andExpect(view().name("login.html")).andExpect(model().attributeDoesNotExist("error"));
+		mockMvc.perform(request).andExpect(view().name("/login")).andExpect(model().attributeDoesNotExist("error"));
 	}
 
 	@Test
-	public void testLogin_PasswordNotMatch_Fail() throws Exception {
-		RequestBuilder request = MockMvcRequestBuilders.post("/register").param("username", "Alice")
-				.param("password", "ABC12345").param("repeatPassword", "xxx");
+	public void testRegister_PasswordNotMatch_Fail() throws Exception {
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/register")
+				.with(csrf())
+				.with(user(alice))
+				.param("username", "Alice")
+				.param("password", "ABC12345")
+				.param("repeatPassword", "xxx")
+				.param("email", "x")
+				.param("picture", "xxx");
 
-		mockMvc.perform(request).andExpect(view().name("register.html")).andExpect(model().attribute("error", true));
+		mockMvc.perform(request).andExpect(view().name("/register")).andExpect(model().attributeDoesNotExist("error"));
 	}
 
 	@Test
-	public void testLogin_PasswordMatchButUsernameExisted_Fail() throws Exception {
-		RequestBuilder request = MockMvcRequestBuilders.post("/register").param("username", "Alice")
-				.param("password", "xxx").param("repeatPassword", "xxx");
+	public void testRegister_PasswordMatchButUsernameExisted_Fail() throws Exception {
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/register")
+				.with(csrf())
+				.with(user(alice))
+				.param("username", "Alice")
+				.param("password", "xxx")
+				.param("repeatPassword", "xxx")
+				.param("email", "x")
+				.param("picture", "xxx");
 
-		mockMvc.perform(request).andExpect(view().name("register.html")).andExpect(model().attribute("error", true));
+		mockMvc.perform(request).andExpect(view().name("/register")).andExpect(model().attributeDoesNotExist("error"));
 	}
 }

@@ -29,6 +29,7 @@ public class EgoPageController {
 			}
 		});
 		mav.addObject("blogList", blogList);
+		mav.setViewName("/egoPage");
 		return mav;
 	}
 
@@ -41,6 +42,7 @@ public class EgoPageController {
 			}
 		});
 		mav.addObject("blogList", blogList);
+		mav.setViewName("/linkedEgoPage");
 		return mav;
 	}
 
@@ -56,6 +58,7 @@ public class EgoPageController {
 		}
 		mav.addObject("content", targetBlog.getContent());
 		mav.addObject("id", id);
+		mav.setViewName("/egoUpdateBlog");
 		return mav;
 	}
 
@@ -74,6 +77,7 @@ public class EgoPageController {
 		Blog targetBlog = blogService.getBlogById(id);
 		mav.addObject("theme", targetBlog.getTheme());
 		blogService.deleteBlog(targetBlog);
+		mav.setViewName("/egoDeleteConfirm");
 		return mav;
 	}
 

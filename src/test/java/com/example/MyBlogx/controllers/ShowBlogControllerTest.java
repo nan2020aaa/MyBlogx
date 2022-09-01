@@ -59,7 +59,7 @@ public class ShowBlogControllerTest {
 				.with(csrf())
 				.with(user(alice));
 
-		mockMvc.perform(request).andExpect(view().name("/publicList.html"))
+		mockMvc.perform(request).andExpect(view().name("/publicList"))
 				.andExpect(model().attributeDoesNotExist("error"));
 	}
 
@@ -76,7 +76,7 @@ public class ShowBlogControllerTest {
 				.with(csrf())
 				.with(user(alice));
 
-		mockMvc.perform(request).andExpect(view().name("/privateList.html"))
+		mockMvc.perform(request).andExpect(view().name("/privateList"))
 				.andExpect(model().attributeDoesNotExist("error"));
 	}
 
@@ -89,11 +89,11 @@ public class ShowBlogControllerTest {
 				.build();
 		
 		RequestBuilder request = MockMvcRequestBuilders.get("/publicBlog")
-				.param("id", "1l")
+				.param("id", "1")
 				.with(csrf())
 				.with(user(alice));
 
-		mockMvc.perform(request).andExpect(view().name("/publicBlog.html"))
+		mockMvc.perform(request).andExpect(view().name("/publicBlog"))
 				.andExpect(model().attributeDoesNotExist("error"));
 	}
 
@@ -106,12 +106,12 @@ public class ShowBlogControllerTest {
 				.build();
 		
 		RequestBuilder request = MockMvcRequestBuilders.get("/privateBlog")
-				.param("id", "1l")
+				.param("id", "1")
 				.with(csrf())
 				.with(user(alice));
 
 		mockMvc.perform(request)
-				.andExpect(view().name("/privateBlog.html"))
+				.andExpect(view().name("/privateBlog"))
 				.andExpect(model().attributeDoesNotExist("error"));
 	}
 }

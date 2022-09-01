@@ -29,6 +29,7 @@ public class UpdateBlogController {
 			}
 		});
 		mav.addObject("blogList", blogList);
+		mav.setViewName("/updateList");
 		return mav;
 	}
 
@@ -44,6 +45,7 @@ public class UpdateBlogController {
 		}
 		mav.addObject("content", targetBlog.getContent());
 		mav.addObject("id", id);
+		mav.setViewName("/updateBlog");
 		return mav;
 	}
 

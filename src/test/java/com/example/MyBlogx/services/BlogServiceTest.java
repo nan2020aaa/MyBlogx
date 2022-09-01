@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,8 +35,7 @@ public class BlogServiceTest {
 
 		when(blogRepository.save(any())).thenReturn(null);
 		when(blogRepository.findById(any())).thenReturn(null);
-		//TODO
-		when(blogRepository.findById(1l)).thenReturn(blog);
+		when(blogRepository.findById(1l)).thenReturn(Optional.of(blog));
 		when(blogRepository.findAll()).thenReturn(allBlogList);
 	}
 
