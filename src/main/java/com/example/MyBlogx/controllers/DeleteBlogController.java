@@ -32,7 +32,7 @@ public class DeleteBlogController {
 	}
 
 	@GetMapping("/deleteBlog")
-	public ModelAndView getDeleteBlogPage(@RequestParam long id, ModelAndView mav) {
+	public ModelAndView getDeleteBlogPage(@RequestParam Long id, ModelAndView mav) {
 		Blog targetBlog = blogService.getBlogById(id);
 		mav.addObject("theme", targetBlog.getTheme());
 		if (targetBlog.getSummary() != null) {
@@ -52,7 +52,7 @@ public class DeleteBlogController {
 	}
 
 	@GetMapping("/deleteConfirm")
-	public ModelAndView getDeleteConfirmPage(@RequestParam long id, ModelAndView mav) {
+	public ModelAndView getDeleteConfirmPage(@RequestParam Long id, ModelAndView mav) {
 		Blog targetBlog = blogService.getBlogById(id);
 		mav.addObject("theme", targetBlog.getTheme());
 		blogService.deleteBlog(targetBlog);

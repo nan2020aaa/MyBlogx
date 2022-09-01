@@ -9,13 +9,5 @@ import com.example.MyBlogx.models.Blog;
 
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, Long> {
-//	Blog findByTheme(String theme);
 
-	Blog save(Blog blog);
-
-	List<Blog> findAll();
-
-	void delete(Blog blog);
-
-	Blog findById(long id);
 }

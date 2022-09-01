@@ -22,8 +22,8 @@ public class BlogService {
 		return repository.findAll();
 	}
 
-	public Blog getBlogById(long id) {
-		return repository.findById(id);
+	public Blog getBlogById(Long id) {
+		return repository.findById(id).get();
 	}
 
 	public void deleteBlog(Blog blog) {

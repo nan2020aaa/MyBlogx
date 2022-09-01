@@ -45,7 +45,7 @@ public class EgoPageController {
 	}
 
 	@GetMapping("/egoUpdateBlog")
-	public ModelAndView getEgoUpdateBlogPage(@RequestParam long id, ModelAndView mav) {
+	public ModelAndView getEgoUpdateBlogPage(@RequestParam Long id, ModelAndView mav) {
 		Blog targetBlog = blogService.getBlogById(id);
 		mav.addObject("theme", targetBlog.getTheme());
 		if (targetBlog.getSummary() != null) {
@@ -70,7 +70,7 @@ public class EgoPageController {
 	}
 
 	@GetMapping("/egoDeleteConfirm")
-	public ModelAndView getEgoDeleteConfirmPage(@RequestParam long id, ModelAndView mav) {
+	public ModelAndView getEgoDeleteConfirmPage(@RequestParam Long id, ModelAndView mav) {
 		Blog targetBlog = blogService.getBlogById(id);
 		mav.addObject("theme", targetBlog.getTheme());
 		blogService.deleteBlog(targetBlog);

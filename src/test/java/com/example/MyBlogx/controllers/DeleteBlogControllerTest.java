@@ -36,5 +36,6 @@ public class DeleteBlogControllerTest {
 		mockMvc.perform(request).andExpect(view().name("deleteList.html"))
 				.andExpect(model().attributeDoesNotExist("error"));
 	}
-
+	
+	
 }

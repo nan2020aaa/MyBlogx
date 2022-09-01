@@ -34,6 +34,7 @@ public class BlogServiceTest {
 
 		when(blogRepository.save(any())).thenReturn(null);
 		when(blogRepository.findById(any())).thenReturn(null);
+		//TODO
 		when(blogRepository.findById(1l)).thenReturn(blog);
 		when(blogRepository.findAll()).thenReturn(allBlogList);
 	}

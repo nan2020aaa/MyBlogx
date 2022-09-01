@@ -26,6 +26,7 @@ public class ShowBlogController {
 			}
 		});
 		mav.addObject("blogList", blogList);
+		mav.setViewName("/publicList");
 		return mav;
 	}
 
@@ -36,11 +37,12 @@ public class ShowBlogController {
 			blogList.add(blog);
 		});
 		mav.addObject("blogList", blogList);
+		mav.setViewName("/privateList");
 		return mav;
 	}
 
 	@GetMapping("/publicBlog")
-	public ModelAndView getPublicBlogPage(@RequestParam long id, ModelAndView mav) {
+	public ModelAndView getPublicBlogPage(@RequestParam Long id, ModelAndView mav) {
 		Blog targetBlog = blogService.getBlogById(id);
 		mav.addObject("theme", targetBlog.getTheme());
 		if (targetBlog.getSummary() != null) {
@@ -55,11 +57,12 @@ public class ShowBlogController {
 		mav.addObject("likeVol", targetBlog.getLikeVol());
 		mav.addObject("commentVol", targetBlog.getCommentVol());
 		mav.addObject("rtVol", targetBlog.getRtVol());
+		mav.setViewName("/publicBlog");
 		return mav;
 	}
 
 	@GetMapping("/privateBlog")
-	public ModelAndView getPrivateBlogPage(@RequestParam long id, ModelAndView mav) {
+	public ModelAndView getPrivateBlogPage(@RequestParam Long id, ModelAndView mav) {
 		Blog targetBlog = blogService.getBlogById(id);
 		mav.addObject("theme", targetBlog.getTheme());
 		if (targetBlog.getSummary() != null) {
@@ -74,6 +77,7 @@ public class ShowBlogController {
 		mav.addObject("likeVol", targetBlog.getLikeVol());
 		mav.addObject("commentVol", targetBlog.getCommentVol());
 		mav.addObject("rtVol", targetBlog.getRtVol());
+		mav.setViewName("/privateBlog");
 		return mav;
 	}
 }
