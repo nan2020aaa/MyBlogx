@@ -34,9 +34,9 @@ public class RegisterControllerTest {
 	@BeforeEach
 	public void prepareData() {
 		when(accountService.hasExisted(any())).thenReturn(false);
-		when(accountService.hasExisted("Alice")).thenReturn(true);
+		when(accountService.hasExisted(eq("Alice"))).thenReturn(true);
 		when(accountService.passwordMatch(any(),any())).thenReturn(false);
-		when(accountService.passwordMatch("xxx","xxx")).thenReturn(true);
+		when(accountService.passwordMatch(eq("xxx"),eq("xxx"))).thenReturn(true);
 		when(accountService.createAccount(any(), eq("xxx"), eq("xxx"), any(), eq("xxx"))).thenReturn(true);
 		when(accountService.createAccount(any(), any(), any(), any(), eq("xxx"))).thenReturn(false);
 		when(accountService.createAccount(eq("Alice"), eq("xxx"), eq("xxx"), any(), eq("xxx"))).thenReturn(false);
@@ -64,6 +64,7 @@ public class RegisterControllerTest {
 	public void testRegister_NewUsernameAndPasswordMatch_Succeed() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/register")
+				.with(csrf())
 				.param("username", "Bob")
 				.param("password", "xxx")
 				.param("repeatPassword", "xxx")
@@ -77,6 +78,7 @@ public class RegisterControllerTest {
 	public void testRegister_PasswordNotMatch_Fail() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/register")
+				.with(csrf())
 				.param("username", "Alice")
 				.param("password", "ABC12345")
 				.param("repeatPassword", "xxx")
@@ -90,6 +92,7 @@ public class RegisterControllerTest {
 	public void testRegister_PasswordMatchButUsernameExisted_Fail() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/register")
+				.with(csrf())
 				.param("username", "Alice")
 				.param("password", "xxx")
 				.param("repeatPassword", "xxx")

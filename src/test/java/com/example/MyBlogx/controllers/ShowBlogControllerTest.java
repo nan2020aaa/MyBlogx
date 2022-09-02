@@ -38,26 +38,36 @@ public class ShowBlogControllerTest {
 	
 	@BeforeEach
 	public void prepareData() {
-		Blog blog = new Blog("x","x","x","x",1l,1l,1l,now);
-		List<Blog> blogList = List.of(blog);
-		
-		when(blogService.getBlogById(any())).thenReturn(null);
-		when(blogService.getBlogById(1l)).thenReturn(blog);
-		when(blogService.getAllBlog()).thenReturn(blogList);
+
 	}
 	
 	@Test
-	public void testGetPublicListPage_Succeed() throws Exception {
-		UserDetails alice = User.withDefaultPasswordEncoder()
-				.username("Alice")
-				.password("xxx")
-				.roles("USER")
-				.build();
+	public void testGetPublicListPage_Accessed_SucceedViewBlog() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x","x","x","Yanagi",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		
+		when(blogService.getAllBlog()).thenReturn(blogList2);
 		
 		RequestBuilder request = MockMvcRequestBuilders
-				.get("/publicList")
-				.with(csrf())
-				.with(user(alice));
+				.get("/publicList");
+
+		mockMvc.perform(request).andExpect(view().name("/publicList"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
+	public void testGetPublicListPage_NotAccessed_FailViewBlog() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x","x","x","Yanagi",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		
+		when(blogService.getAllBlog()).thenReturn(blogList1);
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.get("/publicList");
 
 		mockMvc.perform(request).andExpect(view().name("/publicList"))
 				.andExpect(model().attributeDoesNotExist("error"));
@@ -65,6 +75,13 @@ public class ShowBlogControllerTest {
 
 	@Test
 	public void testGetPrivateListPage_Succeed() throws Exception {
+		Blog blog = new Blog("x","x","x","x",1l,1l,1l,now);
+		List<Blog> blogList = List.of(blog);
+		
+		when(blogService.getBlogById(any())).thenReturn(null);
+		when(blogService.getBlogById(1l)).thenReturn(blog);
+		when(blogService.getAllBlog()).thenReturn(blogList);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")
@@ -81,24 +98,67 @@ public class ShowBlogControllerTest {
 	}
 
 	@Test
-	public void testGetPublicBlogPage_Succeed() throws Exception {
-		UserDetails alice = User.withDefaultPasswordEncoder()
-				.username("Alice")
-				.password("xxx")
-				.roles("USER")
-				.build();
+	public void testGetPublicBlogPage_SummaryExisted_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Yanagi",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null ,"x","Yanagi",1l,1l,1l,now);
+		
+		when(blogService.getBlogById(any())).thenReturn(null);
+		when(blogService.getBlogById(1l)).thenReturn(blog1);
 		
 		RequestBuilder request = MockMvcRequestBuilders.get("/publicBlog")
-				.param("id", "1")
-				.with(csrf())
-				.with(user(alice));
+				.param("id", "1");
+
+		mockMvc.perform(request).andExpect(view().name("/publicBlog"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
+	public void testGetPublicBlogPage_NoSummaryExisted_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Yanagi",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null ,"x","Yanagi",1l,1l,1l,now);
+		
+		when(blogService.getBlogById(any())).thenReturn(null);
+		when(blogService.getBlogById(1l)).thenReturn(blog2);
+		
+		RequestBuilder request = MockMvcRequestBuilders.get("/publicBlog")
+				.param("id", "1");
 
 		mockMvc.perform(request).andExpect(view().name("/publicBlog"))
 				.andExpect(model().attributeDoesNotExist("error"));
 	}
 
 	@Test
-	public void testGetPrivateBlogPage_Succeed() throws Exception {
+	public void testGetPrivateBlogPage_SummaryExisted_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Yanagi",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null ,"x","Yanagi",1l,1l,1l,now);
+		
+		when(blogService.getBlogById(any())).thenReturn(null);
+		when(blogService.getBlogById(1l)).thenReturn(blog1);
+		
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders.get("/privateBlog")
+				.param("id", "1")
+				.with(csrf())
+				.with(user(alice));
+
+		mockMvc.perform(request)
+				.andExpect(view().name("/privateBlog"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
+	public void testGetPrivateBlogPage_NoSummaryExisted_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Yanagi",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null ,"x","Yanagi",1l,1l,1l,now);
+		
+		when(blogService.getBlogById(any())).thenReturn(null);
+		when(blogService.getBlogById(1l)).thenReturn(blog2);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")

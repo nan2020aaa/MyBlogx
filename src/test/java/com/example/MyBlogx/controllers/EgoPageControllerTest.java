@@ -38,16 +38,20 @@ public class EgoPageControllerTest {
 	
 	@BeforeEach
 	public void prepareData() {
-		Blog blog = new Blog("x","x","x","x",1l,1l,1l,now);
-		List<Blog> blogList = List.of(blog);
-		
 		when(blogService.getBlogById(any())).thenReturn(null);
-		when(blogService.getBlogById(1l)).thenReturn(blog);
-		when(blogService.getAllBlog()).thenReturn(blogList);
 	}
 	
 	@Test
-	public void testGetEgoPage_Succeed() throws Exception {
+	public void testGetEgoPage_GetUserSBlog_SucceedGet() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getAllBlog()).thenReturn(blogList1);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")
@@ -64,7 +68,42 @@ public class EgoPageControllerTest {
 	}
 	
 	@Test
-	public void testGetLinkedEgoPage_Succeed() throws Exception {
+	public void testGetEgoPage_GetOtherBlog_FailGet() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getAllBlog()).thenReturn(blogList3);
+		
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.get("/egoPage")
+				.with(csrf())
+				.with(user(alice));
+
+		mockMvc.perform(request).andExpect(view().name("/egoPage"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
+	public void testGetLinkedEgoPage_GetUserSBlog_SucceedGet() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getAllBlog()).thenReturn(blogList1);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")
@@ -82,7 +121,43 @@ public class EgoPageControllerTest {
 	}
 	
 	@Test
-	public void testGetEgoUpdateBlogPage_Succeed() throws Exception {
+	public void testGetLinkedEgoPage_GetOtherBlog_FailGet() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getAllBlog()).thenReturn(blogList3);
+		
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.get("/linkedEgoPage")
+				.with(csrf())
+				.with(user(alice))
+				.param("writer", "Alice");
+
+		mockMvc.perform(request).andExpect(view().name("/linkedEgoPage"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
+	public void testGetEgoUpdateBlogPage_SummaryExisted_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getBlogById(1l)).thenReturn(blog1);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")
@@ -100,7 +175,63 @@ public class EgoPageControllerTest {
 	}
 	
 	@Test
+	public void testGetEgoUpdateBlogPage_SummaryNotExisted_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getBlogById(1l)).thenReturn(blog2);
+		
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.get("/egoUpdateBlog")
+				.with(csrf())
+				.with(user(alice))
+				.param("id", "1");
+
+		mockMvc.perform(request).andExpect(view().name("/egoUpdateBlog"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
+	public void testEgoUpdateBlog_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		
+		when(blogService.getBlogById(1l)).thenReturn(blog1);
+		
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/egoNewBlog")
+				.with(csrf())
+				.with(user(alice))
+				.param("id", "1")
+				.param("theme", "x")
+				.param("summary", "x")
+				.param("content", "x");
+
+		mockMvc.perform(request).andExpect(view().name("redirect:/egoPage"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
 	public void testGetEgoDeleteConfirmPage_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		
+		when(blogService.getBlogById(1l)).thenReturn(blog1);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")
@@ -146,27 +277,6 @@ public class EgoPageControllerTest {
 				.post("/egoNewBlog")
 				.with(csrf())
 				.with(user(alice))
-				.param("theme", "x")
-				.param("summary", "x")
-				.param("content", "x");
-
-		mockMvc.perform(request).andExpect(view().name("redirect:/egoPage"))
-				.andExpect(model().attributeDoesNotExist("error"));
-	}
-	
-	@Test
-	public void testEgoUpdateBlog_Succeed() throws Exception {
-		UserDetails alice = User.withDefaultPasswordEncoder()
-				.username("Alice")
-				.password("xxx")
-				.roles("USER")
-				.build();
-		
-		RequestBuilder request = MockMvcRequestBuilders
-				.post("/egoNewBlog")
-				.with(csrf())
-				.with(user(alice))
-				.param("id", "1")
 				.param("theme", "x")
 				.param("summary", "x")
 				.param("content", "x");

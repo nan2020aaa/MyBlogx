@@ -37,16 +37,44 @@ public class UpdateBlogControllerTest {
 
 	@BeforeEach
 	public void prepareData() {
-		Blog blog = new Blog("x","x","x","x",1l,1l,1l,now);
-		List<Blog> blogList = List.of(blog);
-		
 		when(blogService.getBlogById(any())).thenReturn(null);
-		when(blogService.getBlogById(1l)).thenReturn(blog);
-		when(blogService.getAllBlog()).thenReturn(blogList);
 	}
 
 	@Test
-	public void testGetUpdateListPage_Succeed() throws Exception {
+	public void testGetUpdateListPage_GetUserSBlog_SucceedGet() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getAllBlog()).thenReturn(blogList1);
+		
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders.get("/updateList").with(csrf())
+				.with(user(alice));
+
+		mockMvc.perform(request).andExpect(view().name("/updateList"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
+	public void testGetUpdateListPage_GetOtherBlog_FailGet() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getAllBlog()).thenReturn(blogList3);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")
@@ -61,7 +89,40 @@ public class UpdateBlogControllerTest {
 	}
 
 	@Test
-	public void testGetUpdateBlogPage_Succeed() throws Exception {
+	public void testGetUpdateBlogPage_SummaryExisted_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getBlogById(1l)).thenReturn(blog1);
+		
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders.get("/updateBlog").param("id", "1").with(csrf())
+				.with(user(alice));
+
+		mockMvc.perform(request).andExpect(view().name("/updateBlog"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
+	public void testGetUpdateBlogPage_SummaryNotExisted_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getBlogById(1l)).thenReturn(blog2);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")
@@ -77,6 +138,10 @@ public class UpdateBlogControllerTest {
 
 	@Test
 	public void testUpdateBlog_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		
+		when(blogService.getBlogById(1l)).thenReturn(blog1);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")

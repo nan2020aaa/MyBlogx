@@ -37,16 +37,20 @@ public class DeleteBlogControllerTest {
 
 	@BeforeEach
 	public void prepareData() {
-		Blog blog = new Blog("x","x","x","x",1l,1l,1l,now);
-		List<Blog> blogList = List.of(blog);
-		
 		when(blogService.getBlogById(any())).thenReturn(null);
-		when(blogService.getBlogById(1l)).thenReturn(blog);
-		when(blogService.getAllBlog()).thenReturn(blogList);
 	}
 
 	@Test
-	public void testGetDeleteListPage_Succeed() throws Exception {
+	public void testGetDeleteListPage_GetUserSBlog_SucceedGet() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getAllBlog()).thenReturn(blogList1);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")
@@ -62,7 +66,67 @@ public class DeleteBlogControllerTest {
 	}
 	
 	@Test
-	public void testGetDeleteBlogPage_Succeed() throws Exception {
+	public void testGetDeleteListPage_GetOtherBlog_FailGet() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getAllBlog()).thenReturn(blogList3);
+		
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders.get("/deleteList")
+				.with(csrf())
+				.with(user(alice));
+
+		mockMvc.perform(request).andExpect(view().name("/deleteList"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
+	public void testGetDeleteBlogPage_SummaryExisted_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getBlogById(1l)).thenReturn(blog1);
+		
+		UserDetails alice = User.withDefaultPasswordEncoder()
+				.username("Alice")
+				.password("xxx")
+				.roles("USER")
+				.build();
+		
+		RequestBuilder request = MockMvcRequestBuilders.get("/deleteBlog")
+				.with(csrf())
+				.with(user(alice))
+				.param("id", "1");
+
+		mockMvc.perform(request).andExpect(view().name("/deleteBlog"))
+				.andExpect(model().attributeDoesNotExist("error"));
+	}
+	
+	@Test
+	public void testGetDeleteBlogPage_SummaryNotExisted_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		Blog blog2 = new Blog("x",null,"x","Alice",1l,1l,1l,now);
+		Blog blog3 = new Blog("x","x","x","Bob",1l,1l,1l,now);
+		List<Blog> blogList1 = List.of(blog1);
+		List<Blog> blogList2 = List.of(blog2);
+		List<Blog> blogList3 = List.of(blog3);
+		
+		when(blogService.getBlogById(1l)).thenReturn(blog2);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")
@@ -80,6 +144,10 @@ public class DeleteBlogControllerTest {
 	
 	@Test
 	public void testGetDeleteConfirmPage_Succeed() throws Exception {
+		Blog blog1 = new Blog("x","x","x","Alice",1l,1l,1l,now);
+		
+		when(blogService.getBlogById(1l)).thenReturn(blog1);
+		
 		UserDetails alice = User.withDefaultPasswordEncoder()
 				.username("Alice")
 				.password("xxx")
