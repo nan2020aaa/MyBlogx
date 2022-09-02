@@ -214,7 +214,7 @@ public class EgoPageControllerTest {
 				.build();
 		
 		RequestBuilder request = MockMvcRequestBuilders
-				.post("/egoNewBlog")
+				.post("/egoUpdateBlog")
 				.with(csrf())
 				.with(user(alice))
 				.param("id", "1")

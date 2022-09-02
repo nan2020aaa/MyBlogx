@@ -37,8 +37,8 @@ public class RegisterControllerTest {
 		when(accountService.hasExisted(eq("Alice"))).thenReturn(true);
 		when(accountService.passwordMatch(any(),any())).thenReturn(false);
 		when(accountService.passwordMatch(eq("xxx"),eq("xxx"))).thenReturn(true);
-		when(accountService.createAccount(any(), eq("xxx"), eq("xxx"), any(), eq("xxx"))).thenReturn(true);
-		when(accountService.createAccount(any(), any(), any(), any(), eq("xxx"))).thenReturn(false);
+		when(accountService.createAccount(any(), eq("xxx"), eq("xxx"), eq("x"), eq("xxx"))).thenReturn(true);
+		when(accountService.createAccount(any(), eq("xx"), eq("xxx"), any(), eq("xxx"))).thenReturn(false);
 		when(accountService.createAccount(eq("Alice"), eq("xxx"), eq("xxx"), any(), eq("xxx"))).thenReturn(false);
 	}
 
