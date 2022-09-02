@@ -30,11 +30,14 @@ public class RegisterController {
 		picture = "xxx";
 		boolean isSuccessful = accountService.createAccount(username, password, repeatPassword, email, picture);
 		if (isSuccessful) {
+			System.out.println("x "+"username "+username+" password "+password+" repeatPassword "+repeatPassword);
 			mav.setViewName("/login");
 		} else {
 			if (!(accountService.passwordMatch(password, repeatPassword))) {
+				System.out.println("y "+"username "+username+" password "+password+" repeatPassword "+repeatPassword);
 				mav.addObject("isMatch", false);
 			} else if (accountService.hasExisted(username)) {
+				System.out.println("z "+"username "+username+" password "+password+" repeatPassword "+repeatPassword);
 				mav.addObject("hasExisted", true);
 			}
 			mav.setViewName("/register");

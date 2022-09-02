@@ -33,6 +33,10 @@ public class RegisterControllerTest {
 
 	@BeforeEach
 	public void prepareData() {
+		when(accountService.hasExisted(any())).thenReturn(false);
+		when(accountService.hasExisted("Alice")).thenReturn(true);
+		when(accountService.passwordMatch(any(),any())).thenReturn(false);
+		when(accountService.passwordMatch("xxx","xxx")).thenReturn(true);
 		when(accountService.createAccount(any(), eq("xxx"), eq("xxx"), any(), eq("xxx"))).thenReturn(true);
 		when(accountService.createAccount(any(), any(), any(), any(), eq("xxx"))).thenReturn(false);
 		when(accountService.createAccount(eq("Alice"), eq("xxx"), eq("xxx"), any(), eq("xxx"))).thenReturn(false);
@@ -40,14 +44,8 @@ public class RegisterControllerTest {
 
 	@Test
 	public void testGetRegisterPage_Succeed() throws Exception {
-		UserDetails alice = User.withDefaultPasswordEncoder()
-				.username("Alice")
-				.password("xxx")
-				.roles("USER")
-				.build();
-		
-		RequestBuilder request = MockMvcRequestBuilders.get("/register").with(csrf())
-				.with(user(alice));
+		RequestBuilder request = MockMvcRequestBuilders
+				.get("/register");
 
 		mockMvc.perform(request).andExpect(view().name("register.html"))
 				.andExpect(model().attributeDoesNotExist("error"));
@@ -55,14 +53,8 @@ public class RegisterControllerTest {
 
 	@Test
 	public void testGetTermsAndPoliciesPage_Succeed() throws Exception {
-		UserDetails alice = User.withDefaultPasswordEncoder()
-				.username("Alice")
-				.password("xxx")
-				.roles("USER")
-				.build();
-		
-		RequestBuilder request = MockMvcRequestBuilders.get("/termsAndPolicies").with(csrf())
-				.with(user(alice));
+		RequestBuilder request = MockMvcRequestBuilders
+				.get("/termsAndPolicies");
 
 		mockMvc.perform(request).andExpect(view().name("termsAndPolicies.html"))
 				.andExpect(model().attributeDoesNotExist("error"));
@@ -70,16 +62,8 @@ public class RegisterControllerTest {
 
 	@Test
 	public void testRegister_NewUsernameAndPasswordMatch_Succeed() throws Exception {
-		UserDetails alice = User.withDefaultPasswordEncoder()
-				.username("Alice")
-				.password("xxx")
-				.roles("USER")
-				.build();
-		
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/register")
-				.with(csrf())
-				.with(user(alice))
 				.param("username", "Bob")
 				.param("password", "xxx")
 				.param("repeatPassword", "xxx")
@@ -91,16 +75,8 @@ public class RegisterControllerTest {
 
 	@Test
 	public void testRegister_PasswordNotMatch_Fail() throws Exception {
-		UserDetails alice = User.withDefaultPasswordEncoder()
-				.username("Alice")
-				.password("xxx")
-				.roles("USER")
-				.build();
-		
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/register")
-				.with(csrf())
-				.with(user(alice))
 				.param("username", "Alice")
 				.param("password", "ABC12345")
 				.param("repeatPassword", "xxx")
@@ -112,16 +88,8 @@ public class RegisterControllerTest {
 
 	@Test
 	public void testRegister_PasswordMatchButUsernameExisted_Fail() throws Exception {
-		UserDetails alice = User.withDefaultPasswordEncoder()
-				.username("Alice")
-				.password("xxx")
-				.roles("USER")
-				.build();
-		
 		RequestBuilder request = MockMvcRequestBuilders
 				.post("/register")
-				.with(csrf())
-				.with(user(alice))
 				.param("username", "Alice")
 				.param("password", "xxx")
 				.param("repeatPassword", "xxx")
